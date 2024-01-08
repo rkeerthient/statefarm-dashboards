@@ -67,7 +67,7 @@ const Suggestions = () => {
     let isMounted = true;
 
     const getFieldConfig = async () => {
-      const entityId = `4635269`;
+      const entityId = `fp-0274`;
       try {
         const response = await fetch(`/api/getSuggestions/${entityId}`);
 
@@ -84,7 +84,7 @@ const Suggestions = () => {
         setSuggestionsData(suggestions);
       } catch (error) {
         console.error(
-          `Failed to fetch field configuration for ${`4635269`}:`,
+          `Failed to fetch field configuration for ${`fp-0274`}:`,
           error
         );
       } finally {

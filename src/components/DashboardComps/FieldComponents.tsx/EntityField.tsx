@@ -1,35 +1,45 @@
-import { Transition, Dialog } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/20/solid";
-import { useState } from "react";
+import { Transition, Dialog, Listbox } from "@headlessui/react";
+import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/20/solid";
+import { useEffect, useState } from "react";
 import LexicalMarkdownEditor from "../LexicalRichText/LexicalMarkdownEditor";
-import Ce_blog from "../../../types/blog";
 import PhotoGalleryField from "./PhotoGalleryField";
-import { useMyContext } from "../../Context/MyContext";
 import * as React from "react";
+import Ce_insuranceProducts from "../../../types/insurance_products";
+
 interface EntityFieldProps {
-  initialValue?: Ce_blog[];
+  initialValue?: Ce_insuranceProducts[];
   fieldId: string;
 }
+const options = [
+  { label: "Auto", value: "AUTO" },
+  { label: "Home", value: "HOME" },
+  { label: "Boat", value: "BOAT" },
+  { label: "RV", value: "RV" },
+  { label: "Renters", value: "RENTERS" },
+];
 
 const EntityField = ({ initialValue }: EntityFieldProps) => {
-  const [blogPosts, setBlogPosts] = useState<Ce_blog[]>(initialValue || []);
+  const [selectedOption, setSelectedOption] = useState(options[0]);
+  const [insuranceProductPost, setInsuranceProductPost] = useState<
+    Ce_insuranceProducts[]
+  >(initialValue || []);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isEditable, setIsEditable] = useState(false);
   const [open, setOpen] = useState<boolean>(false);
-  const [newBlog, setNewBlog] = useState<Ce_blog>({});
-  const { userRole } = useMyContext();
+  const [newInsuranceProduct, setNewInsuranceProduct] =
+    useState<Ce_insuranceProducts>({});
+
   const handleClick = () => {
     setIsEditable(true);
   };
 
   const handleSave = async () => {
     setIsLoading(true);
-
     try {
       const requestBody = encodeURIComponent(
         JSON.stringify({
-          ...newBlog,
-          c_associatedBlogs: ["4635269"],
+          ...newInsuranceProduct,
+          c_professionalsInsuranceProducts: ["fp-0274"],
         })
       );
 
@@ -42,7 +52,7 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
       };
       resp &&
         buildRespJson &&
-        setBlogPosts((prevPosts: any) => {
+        setInsuranceProductPost((prevPosts: any) => {
           return [...prevPosts, buildRespJson];
         });
     } catch (error) {
@@ -71,7 +81,7 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
         {isEditable ? (
           <>
             <div className="space-y-2">
-              {blogPosts.map((item, index) => (
+              {insuranceProductPost.map((item, index) => (
                 <div className="flex flex-col" key={index}>
                   <div className="font-bold">{item.name}</div>
                   <div className="text-sm">{item.id}</div>
@@ -87,17 +97,18 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
           </>
         ) : (
           <div onClick={handleClick} className="hover:cursor-pointer">
-            {(blogPosts && (
+            {insuranceProductPost && insuranceProductPost.length >= 1 ? (
               <div className="space-y-2">
-                {blogPosts.map((item, index) => (
+                {insuranceProductPost.map((item, index) => (
                   <div className="flex flex-col" key={index}>
                     <div className="font-bold">{item.name}</div>
                     <div className="text-sm">{item.id}</div>
                   </div>
                 ))}
               </div>
-            )) ||
-              "Click to add"}
+            ) : (
+              "Click to add"
+            )}
           </div>
         )}
       </div>
@@ -156,8 +167,8 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                             type="text"
                             className="border w-full p-1"
                             onChange={(e) =>
-                              setNewBlog({
-                                ...newBlog,
+                              setNewInsuranceProduct({
+                                ...newInsuranceProduct,
                                 name: e.target.value,
                               })
                             }
@@ -177,8 +188,8 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                             type="text"
                             className="border w-full p-1"
                             onChange={(e) =>
-                              setNewBlog({
-                                ...newBlog,
+                              setNewInsuranceProduct({
+                                ...newInsuranceProduct,
                                 landingPageUrl: e.target.value,
                               })
                             }
@@ -194,16 +205,83 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                           </div>
                         </div>
                         <div className="w-4/5 flex justify-between">
-                          <input
+                          {/* <input
                             type="text"
                             className="border w-full p-1"
                             onChange={(e) =>
-                              setNewBlog({
-                                ...newBlog,
+                              setNewInsuranceProduct({
+                                ...newInsuranceProduct,
                                 c_category: e.target.value,
                               })
                             }
-                          />
+                          /> */}
+
+                          <Listbox
+                            value={selectedOption}
+                            onChange={(e) =>
+                              setNewInsuranceProduct({
+                                ...newInsuranceProduct,
+                                c_category: selectedOption.label,
+                              })
+                            }
+                          >
+                            <Listbox.Button className="py-2 pl-3 pr-10 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
+                              {selectedOption.label}
+                            </Listbox.Button>
+                            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                              {options.map((option) => (
+                                <Listbox.Option
+                                  key={option.value}
+                                  value={option}
+                                  className={({ active, selected }) =>
+                                    `cursor-pointer select-none relative py-2 pl-10 pr-4 ${
+                                      active
+                                        ? "text-white bg-blue-600"
+                                        : selected
+                                        ? "text-white bg-blue-500"
+                                        : "text-gray-900"
+                                    }`
+                                  }
+                                >
+                                  {({ selected }) => (
+                                    <>
+                                      <span
+                                        className={`block truncate ${
+                                          selected
+                                            ? "font-semibold"
+                                            : "font-normal"
+                                        }`}
+                                      >
+                                        {option.label}
+                                      </span>
+                                      {selected && (
+                                        <span
+                                          className={`${
+                                            selected
+                                              ? "text-white"
+                                              : "text-gray-600"
+                                          } absolute inset-y-0 left-0 flex items-center pl-3`}
+                                        >
+                                          <svg
+                                            className="w-5 h-5"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 20 20"
+                                            fill="currentColor"
+                                            aria-hidden="true"
+                                          >
+                                            <path
+                                              fillRule="evenodd"
+                                              d="M0 11l2-2 5 5L18 3l2 2L7 18z"
+                                            />
+                                          </svg>
+                                        </span>
+                                      )}
+                                    </>
+                                  )}
+                                </Listbox.Option>
+                              ))}
+                            </Listbox.Options>
+                          </Listbox>
                         </div>
                       </div>
                       <div className="flex flex-row justify-between items-center">
@@ -218,7 +296,7 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                           <PhotoGalleryField
                             passDataToParent={true}
                             setUrlData={(urlData: string[]) =>
-                              setNewBlog((prevNewBlog: any) => ({
+                              setNewInsuranceProduct((prevNewBlog: any) => ({
                                 ...prevNewBlog,
                                 photoGallery: urlData.map((url) => ({
                                   image: {
@@ -247,8 +325,8 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                             type="text"
                             className="border w-full p-1"
                             onChange={(e) =>
-                              setNewBlog({
-                                ...newBlog,
+                              setNewInsuranceProduct({
+                                ...newInsuranceProduct,
                                 c_datePublished: e.target.value,
                               })
                             }
@@ -269,8 +347,8 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                             serializedAST={""}
                             editable={true}
                             setChangedData={(richText: string) => {
-                              setNewBlog({
-                                ...newBlog,
+                              setNewInsuranceProduct({
+                                ...newInsuranceProduct,
                                 c_body: richText,
                               });
                             }}

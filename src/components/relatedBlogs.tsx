@@ -1,5 +1,4 @@
 import * as React from "react";
-import Ce_blog from "../types/blog";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
