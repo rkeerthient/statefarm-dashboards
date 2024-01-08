@@ -11,7 +11,7 @@ const CreateEntity = async (
   const { body, format } = queryParams;
 
   const getEntitiesResponse = await fetch(
-    `https://sbx-api.yextapis.com/v2/accounts/me/entities?api_key=${api_key}&v=20230601&entityType=ce_blog${
+    `https://api.yextapis.com/v2/accounts/me/entities?api_key=${api_key}&v=20230601&entityType=ce_blog${
       format ? `&format=${format}` : ""
     }`,
     {

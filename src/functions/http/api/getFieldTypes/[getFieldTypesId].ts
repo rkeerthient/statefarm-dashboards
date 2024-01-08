@@ -22,7 +22,7 @@ const getFieldTypes = async (
   }
 
   const getFieldsResponse = await fetch(
-    `https://sbx-api.yextapis.com/v2/accounts/me/config/resources/km/field-type/${getFieldTypesId}?api_key=${api_key}&v=20230601`
+    `https://api.yextapis.com/v2/accounts/me/config/resources/km/field-type/${getFieldTypesId}?api_key=${api_key}&v=20230601`
   );
 
   const resp = await getFieldsResponse.json();

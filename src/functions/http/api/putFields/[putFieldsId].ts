@@ -14,7 +14,7 @@ const putFields = async (
 
   userRole === "19718"
     ? (getEntitiesResponse = await fetch(
-        `https://sbx-api.yextapis.com/v2/accounts/me/suggestions?api_key=${api_key}&v=20230601${
+        `https://api.yextapis.com/v2/accounts/me/suggestions?api_key=${api_key}&v=20230601${
           format ? `&format=${format}` : ""
         }`,
         {
@@ -26,7 +26,7 @@ const putFields = async (
         }
       ))
     : ((getEntitiesResponse = await fetch(
-        `https://sbx-api.yextapis.com/v2/accounts/me/entities/${putFieldsId}?api_key=${api_key}&v=20230601${
+        `https://api.yextapis.com/v2/accounts/me/entities/${putFieldsId}?api_key=${api_key}&v=20230601${
           format ? `&format=${format}` : ""
         }`,
         {

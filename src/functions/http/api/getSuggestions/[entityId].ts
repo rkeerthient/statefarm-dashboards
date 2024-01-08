@@ -18,7 +18,7 @@ const getSugestions = async (
     };
   }
   const getFieldsResponse = await fetch(
-    `https://sbx-api.yextapis.com/v2/accounts/me/suggestions?entityIds=${entityId}&api_key=${api_key}&v=20230601&sortBy=[{"lastUpdatedDate":"descending"}]`
+    `https://api.yextapis.com/v2/accounts/me/suggestions?entityIds=${entityId}&api_key=${api_key}&v=20230601&sortBy=[{"lastUpdatedDate":"descending"}]`
   );
 
   const resp = await getFieldsResponse.json();

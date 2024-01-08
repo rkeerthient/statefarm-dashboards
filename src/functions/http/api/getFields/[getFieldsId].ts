@@ -16,9 +16,12 @@ const getFields = async (
   if (!getFieldsId) {
     return { body: "Missing entityId", headers: {}, statusCode: 400 };
   }
+  console.log(
+    `https://api.yextapis.com/v2/accounts/me/config/resources/km/field/${getFieldsId}?api_key=${api_key}&v=20230601`
+  );
 
   const getFieldsResponse = await fetch(
-    `https://sbx-api.yextapis.com/v2/accounts/me/config/resources/km/field/${getFieldsId}?api_key=${api_key}&v=20230601`
+    `https://api.yextapis.com/v2/accounts/me/config/resources/km/field/${getFieldsId}?api_key=${api_key}&v=20230601`
   );
 
   const resp = await getFieldsResponse.json();

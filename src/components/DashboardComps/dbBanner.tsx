@@ -48,7 +48,14 @@ const DBBanner = (props: DBBanner) => {
             </div>
             <div>
               {props._site.c_dashboardHeroDescription && (
-                <RTF>{props._site.c_dashboardHeroDescription}</RTF>
+                // <RTF>{props._site.c_dashboardHeroDescription}</RTF>
+                <RTF>
+                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                  Aliquam laudantium, ducimus facilis fugit placeat dolorum
+                  maxime asperiores quis velit dignissimos sit ad incidunt,
+                  maiores doloribus. Voluptatem pariatur dolorem necessitatibus
+                  repudiandae.
+                </RTF>
               )}
             </div>
             <div className="flex gap-4">

@@ -7,13 +7,13 @@ import StaticMap from "../static-map";
 import { LexicalRichText } from "@yext/react-components";
 import PhotoCarousel from "../PhotoCarousel";
 import { EnumData } from "../EnumData";
-import {
-  C_awardsDashboard,
-  C_clientFocuses,
-  C_designations,
-  C_hobbiesAndInterests,
-  C_serviceAreas,
-} from "../../types/financial_professionals";
+// import {
+//   C_awardsDashboard,
+//   C_clientFocuses,
+//   C_designations,
+//   C_hobbiesAndInterests,
+//   // C_serviceAreas,
+// } from "../../types/financial_professionals";
 import PageLayout from "../page-layout";
 import ServiceAreaMap from "../ServiceAreaMap";
 const Preview = ({ data }: any) => {
@@ -360,7 +360,7 @@ const Preview = ({ data }: any) => {
           // </div>
         )}
       </div>
-      {c_serviceAreas && (
+      {/* {c_serviceAreas && (
         <div className="centered-container">
           <div className=" flex justify-between px-4 bg-white mt-8">
             <div className="w-1/2 flex justify-between items-center">
@@ -375,7 +375,7 @@ const Preview = ({ data }: any) => {
             </div>
           </div>
         </div>
-      )}
+      )} */}
     </PageLayout>
   );
 };

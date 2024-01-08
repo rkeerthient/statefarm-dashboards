@@ -1,17 +1,14 @@
 {
   "$id": "site-entity",
   "filter": {
-    "entityIds": ["1177218108959968853"]
+    "entityIds": ["8505966723335226201"]
   },
   "source": "knowledgeGraph",
   "fields": [
     "name",
     "c_deskHeader",
     "c_deskFooter",
-    "c_templateBBanner",
-    "c_brandLogo",
     "c_taskGroups",
-    "c_templateABanner",
     "c_dashboardPagesURLText",
     "c_dashboardCompletionLabel",
     "c_dashboardCompletionDescription",
