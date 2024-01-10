@@ -27,9 +27,7 @@ const Actions = ({
     try {
       const requestBody = encodeURIComponent(JSON.stringify(saveBody));
       const response = await fetch(
-        `/api/putFields/${`fp-0274`}?body=${requestBody}&userRole=${
-          userRole.acl[0].roleId
-        }`
+        `/api/putFields/${`fp-0274`}?body=${requestBody}&userRole=${1}`
       );
       const res = await response.json();
 

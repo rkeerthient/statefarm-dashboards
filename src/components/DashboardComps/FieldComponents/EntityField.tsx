@@ -295,16 +295,20 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                         <div className="w-4/5 flex justify-between">
                           <PhotoGalleryField
                             passDataToParent={true}
-                            setUrlData={(urlData: string[]) =>
-                              setNewInsuranceProduct((prevNewBlog: any) => ({
-                                ...prevNewBlog,
-                                photoGallery: urlData.map((url) => ({
-                                  image: {
-                                    url: url,
-                                  },
-                                })),
-                              }))
-                            }
+                            setUrlData={(urlData: string[]) => {
+                              console.log(urlData);
+
+                              return setNewInsuranceProduct(
+                                (prevNewBlog: any) => ({
+                                  ...prevNewBlog,
+                                  photoGallery: urlData.map((url) => ({
+                                    image: {
+                                      url: url,
+                                    },
+                                  })),
+                                })
+                              );
+                            }}
                             editMode={true}
                             fieldId={""}
                             initialValue={undefined}
@@ -322,7 +326,7 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                         </div>
                         <div className="w-4/5 flex justify-between">
                           <input
-                            type="text"
+                            type="date"
                             className="border w-full p-1"
                             onChange={(e) =>
                               setNewInsuranceProduct({

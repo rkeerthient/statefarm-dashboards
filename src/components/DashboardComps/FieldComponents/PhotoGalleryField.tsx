@@ -34,7 +34,7 @@ const PhotoGalleryField = ({
     setValue(value.filter((item: any, currentIndex: any) => item !== imgUrl));
   };
   useEffect(() => {
-    passDataToParent && value && setUrlData(value);
+    passDataToParent && value && setUrlData(value); 
     setIsContentEdited(
       JSON.stringify(value) !==
         JSON.stringify(

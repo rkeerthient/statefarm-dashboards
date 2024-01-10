@@ -6,6 +6,7 @@ type PhotoUploadProps = {
   isOpen: (value: boolean) => void;
   multiple: boolean;
 };
+
 const PhotoUpload = ({ imgUrls, isOpen, multiple }: PhotoUploadProps) => {
   const [files, setFiles] = useState<
     (File & { preview: string }) | (File & { preview: string })[]
@@ -171,7 +172,9 @@ const PhotoUpload = ({ imgUrls, isOpen, multiple }: PhotoUploadProps) => {
         <div className="flex justify-end gap-6">
           <div
             onClick={() => {
-              imgUrls([]);
+              if (typeof imgUrls === "function") {
+                imgUrls([]);
+              }
               setFiles([]);
               isOpen(false);
             }}
@@ -179,6 +182,7 @@ const PhotoUpload = ({ imgUrls, isOpen, multiple }: PhotoUploadProps) => {
           >
             Cancel
           </div>
+
           <div
             className={`h-8 flex items-center bg-active rounded-md px-4 py-0 text-white text-sm ${
               isLoading
