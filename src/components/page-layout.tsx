@@ -19,7 +19,7 @@ const PageLayout = ({ _site, children, document }: Props) => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   //2676513
   const userId = isLocal()
-    ? "5862790467202482353"
+    ? "2384306164907519769"
     : runtime.name === "browser" && window?.YEXT_AUTH?.visitor?.externalId
     ? window.YEXT_AUTH.visitor.externalId
     : "";
@@ -40,7 +40,7 @@ const PageLayout = ({ _site, children, document }: Props) => {
         c_aboutAdvisorShortDescription,
         c_expertiseCommentsRTv2,
         c_hobbiesAndInterests,
-        c_teamDescriptionRTv2,
+        c_teamDescription,
         c_languagesV2,
         c_educationDisplay,
         c_heroBanner,
@@ -75,7 +75,7 @@ const PageLayout = ({ _site, children, document }: Props) => {
         ...(photoGallery && { photoGallery }),
         ...(c_expertiseCommentsRTv2 && { c_expertiseCommentsRTv2 }),
         ...(c_hobbiesAndInterests && { c_hobbiesAndInterests }),
-        ...(c_teamDescriptionRTv2 && { c_teamDescriptionRTv2 }),
+        ...(c_teamDescription && { c_teamDescription }),
         ...(c_teamName && { c_teamName }),
 
         ...(c_languagesV2 && { c_languagesV2 }),

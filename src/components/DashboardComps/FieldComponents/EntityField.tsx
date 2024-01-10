@@ -1,6 +1,6 @@
 import { Transition, Dialog, Listbox } from "@headlessui/react";
-import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/20/solid";
-import { useEffect, useState } from "react";
+import { XMarkIcon } from "@heroicons/react/20/solid";
+import { useState } from "react";
 import LexicalMarkdownEditor from "../LexicalRichText/LexicalMarkdownEditor";
 import PhotoGalleryField from "./PhotoGalleryField";
 import * as React from "react";

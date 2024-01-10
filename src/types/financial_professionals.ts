@@ -99,7 +99,7 @@ export interface Hours {
   holidayHours?: HolidayHours[];
   reopenDate?: string;
 }
-
+ 
 export interface Address {
   line1?: string;
   line2?: string;

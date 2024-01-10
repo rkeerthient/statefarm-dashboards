@@ -1,27 +1,31 @@
 import * as React from "react";
 import { useEffect, useState } from "react";
 import { Root } from "../../types/fieldSchema";
-import DateField from "./FieldComponents.tsx/DateField";
-import PicklistField from "./FieldComponents.tsx/PicklistField";
-import TextField from "./FieldComponents.tsx/TextField";
-import MultiPicklistField from "./FieldComponents.tsx/MultiPicklistField";
+import DateField from "./FieldComponents/DateField";
+import PicklistField from "./FieldComponents/PicklistField";
+import TextField from "./FieldComponents/TextField";
+import MultiPicklistField from "./FieldComponents/MultiPicklistField";
 import StructTypeField from "../StructTypeField";
-import Slider from "./FieldComponents.tsx/Slider";
+import Slider from "./FieldComponents/Slider";
 import TextBoxList from "./ListsUI/TextboxList";
-import RichTextField from "./FieldComponents.tsx/RichTextField";
-import TextArea from "./FieldComponents.tsx/TextAreaField";
-import EntityField from "./FieldComponents.tsx/EntityField";
-import PhotoField from "./FieldComponents.tsx/PhotoField";
-import PhotoGalleryField from "./FieldComponents.tsx/PhotoGalleryField";
-import ColorPickerField from "./FieldComponents.tsx/ColorPickerField";
+import RichTextField from "./FieldComponents/RichTextField";
+import TextArea from "./FieldComponents/TextAreaField";
+import EntityField from "./FieldComponents/EntityField";
+import PhotoField from "./FieldComponents/PhotoField";
+import PhotoGalleryField from "./FieldComponents/PhotoGalleryField";
+import ColorPickerField from "./FieldComponents/ColorPickerField";
+import HoursField from "./FieldComponents/HoursField";
+import HoursHolidayField from "./FieldComponents/HoursHolidayFields";
+import HoursTempClosedField from "./FieldComponents/HoursTempClosedField";
 
 interface UIPickerProps {
   subItemField: string;
-  initialValue?: string;
+  initialValue?: any;
   isSlider?: boolean;
   minText?: string;
   maxText?: string;
   readonly: boolean;
+  fieldName?: string;
 }
 
 const UIPicker = ({
@@ -31,6 +35,7 @@ const UIPicker = ({
   minText,
   maxText,
   readonly,
+  fieldName,
 }: UIPickerProps) => {
   const [mainFieldSchema, setMainFieldSchema] = useState<Root | undefined>();
   const [subFieldSchema, setSubFieldSchema] = useState<Root | undefined>();
@@ -49,9 +54,11 @@ const UIPicker = ({
         }
 
         const mainJson: Root = await response.json();
+
         setMainFieldSchema(mainJson);
 
         if (
+          mainJson.response.typeId === "list" &&
           mainJson.response.type.listType &&
           mainJson.response.type.listType.typeId.includes("c_")
         ) {
@@ -119,7 +126,7 @@ const UIPicker = ({
                 </div>
               );
             default:
-              return null; // Add a default case or handle it accordingly
+              return null;
           }
         })()
       ) : (
@@ -193,6 +200,24 @@ const UIPicker = ({
                         fieldId={mainFieldSchema.response.$id}
                       />
                     );
+                  case "hours":
+                    return fieldName === "Office hours" ? (
+                      <HoursField
+                        initialValue={initialValue}
+                        fieldId={mainFieldSchema.response.$id}
+                      />
+                    ) : fieldName === "Office hours (Holiday Hours)" ? (
+                      <HoursHolidayField
+                        initialValue={initialValue.holidayHours}
+                        fieldId={mainFieldSchema.response.$id}
+                      />
+                    ) : (
+                      <HoursTempClosedField
+                        initialValue={initialValue}
+                        fieldId={mainFieldSchema.response.$id}
+                      />
+                    );
+
                   case "decimal":
                     return isSlider ? (
                       <Slider

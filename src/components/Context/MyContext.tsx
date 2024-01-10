@@ -32,7 +32,7 @@ interface MyContextData {
   c_aboutAdvisorShortDescription: string;
   c_expertiseCommentsRTv2: string;
   c_hobbiesAndInterests: string[];
-  c_teamDescriptionRTv2: any;
+  c_teamDescription: any;
   c_languagesV2: string[];
   c_educationDisplay: C_educationDisplay[];
   c_heroBanner: string;
@@ -85,7 +85,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     c_aboutAdvisorShortDescription: "",
     c_expertiseCommentsRTv2: "",
     c_hobbiesAndInterests: [],
-    c_teamDescriptionRTv2: undefined,
+    c_teamDescription: undefined,
     c_languagesV2: [],
     c_educationDisplay: [],
     c_heroBanner: "",

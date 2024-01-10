@@ -18,7 +18,7 @@ const PicklistField = ({
   fieldId,
 }: PicklistFieldProps) => {
   const [value, setValue] = useState<Option | null>(null);
-  const isContentEdited = value?.textValue !== initialValue;
+  const isContentEdited = true;
   const [isEditable, setIsEditable] = useState(false);
   const handleClick = () => {
     setIsEditable(true);
@@ -26,7 +26,7 @@ const PicklistField = ({
 
   useEffect(() => {
     setValue(
-      options.find((option) => option.textValue === initialValue) || null
+      options.find((option) => option.textValue === initialValue) || options[0]
     );
   }, [options, initialValue]);
 
@@ -98,7 +98,7 @@ const PicklistField = ({
               className={`ml-8 text-xs w-2/4`}
               style={{
                 ...(value?.displayName && {
-                  fontFamily: ` ${value.displayName
+                  fontFamily: `${value.displayName
                     .toLowerCase()
                     .replaceAll(" ", "_")}`,
                 }),

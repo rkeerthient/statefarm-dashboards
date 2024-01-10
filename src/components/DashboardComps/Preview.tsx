@@ -7,13 +7,7 @@ import StaticMap from "../static-map";
 import { LexicalRichText } from "@yext/react-components";
 import PhotoCarousel from "../PhotoCarousel";
 import { EnumData } from "../EnumData";
-// import {
-//   C_awardsDashboard,
-//   C_clientFocuses,
-//   C_designations,
-//   C_hobbiesAndInterests,
-//   // C_serviceAreas,
-// } from "../../types/financial_professionals";
+
 import PageLayout from "../page-layout";
 import ServiceAreaMap from "../ServiceAreaMap";
 const Preview = ({ data }: any) => {
@@ -34,7 +28,7 @@ const Preview = ({ data }: any) => {
     c_designations,
     c_awardsDashboard,
     c_teamName,
-    c_teamDescriptionRTv2,
+    c_teamDescription,
     c_teamMembers,
     c_serviceAreas,
   } = _data;
@@ -268,7 +262,7 @@ const Preview = ({ data }: any) => {
         </div>
       </div>
       <div className="centered-container mt-8">
-        {c_teamName && c_teamDescriptionRTv2 && (
+        {c_teamName && c_teamDescription && (
           <div className="bg-white py-24 sm:py-32">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
               <div className="mx-auto max-w-2xl lg:mx-0">
@@ -276,7 +270,7 @@ const Preview = ({ data }: any) => {
                   {c_teamName}
                 </h2>
                 <LexicalRichText
-                  serializedAST={JSON.stringify(c_teamDescriptionRTv2.json)}
+                  serializedAST={JSON.stringify(c_teamDescription.json)}
                 />
               </div>
               <ul
@@ -352,7 +346,7 @@ const Preview = ({ data }: any) => {
           //     <div>{c_teamName}</div>
           //     <div>
           //       <LexicalRichText
-          //         serializedAST={JSON.stringify(c_teamDescriptionRTv2.json)}
+          //         serializedAST={JSON.stringify(c_teamDescription.json)}
           //       />
           //     </div>
           //     <TeamCarousel data={c_teamMembers}></TeamCarousel>

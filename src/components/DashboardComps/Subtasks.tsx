@@ -64,6 +64,7 @@ const Subtasks = ({ subItem, document }: any) => {
               minText={subItem.sliderLowText}
               maxText={subItem.sliderHighText}
               isSlider={subItem.slider}
+              fieldName={subItem.name}
               subItemField={subItem.field}
               initialValue={document[subItem.field]}
               readonly={subItem.readonly}

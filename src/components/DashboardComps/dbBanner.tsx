@@ -37,7 +37,7 @@ const DBBanner = (props: DBBanner) => {
         className="text-white p-4 flex items-center justify-center flex-row space-x-20 w-full"
       >
         <div className="flex items-center flex-row  gap-4">
-          <div>
+          <div className="  w-48">
             {headshot && (
               <img src={headshot.url} className="w-full h-full"></img>
             )}

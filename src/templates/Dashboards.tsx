@@ -29,6 +29,8 @@ import PageLayout from "../components/page-layout";
 import { Image } from "@yext/sites-components";
 import { Main } from "../layout/main";
 import Suggestions from "../components/DashboardComps/Suggestions";
+import ReviewsBarChart from "../components/DashboardComps/ReviewsBarChart";
+import StarRating from "../components/StarRating";
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -48,7 +50,6 @@ export const config: TemplateConfig = {
       "c_jobTitle",
       "c_clientFocuses",
       "c_fullBiography",
-
       "c_languagesSpoken",
       "photoGallery",
       "emails",
@@ -80,10 +81,11 @@ export const config: TemplateConfig = {
       "c_photoGallery.url",
       "c_photoGallery.width",
       "c_taskGroups",
-      // "c_teamMembers.name",
-      // "c_teamMembers.c_jobTitle",
-      // "c_teamMembers.slug",
-      // "c_teamMembers.photoGallery",
+      "c_officeHours",
+      "c_teamMembers.name",
+      "c_teamMembers.c_jobTitle",
+      "c_teamMembers.slug",
+      "c_teamMembers.headshot",
       "c_professionalsInsuranceProducts.landingPageUrl",
       "c_professionalsInsuranceProducts.description",
       "c_professionalsInsuranceProducts.name",
@@ -95,8 +97,8 @@ export const config: TemplateConfig = {
       "c_heroBanner",
       "c_template",
       "geocodedCoordinate",
-      // "c_teamDescriptionRTv2",
-      // "c_teamName",
+      "c_teamDescription",
+      "c_teamName",
       "c_serviceAreas",
     ],
     filter: {
@@ -222,7 +224,76 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
       Position: 4.1,
     },
   ];
-  const tabs = ["About me", "My Team", "Analytics", "Suggestions"];
+  const dummyRating = [
+    {
+      author: "John Doe",
+      rating: 3.5,
+      date: "2024-01-10",
+      description: "Great product, love it!",
+    },
+    {
+      author: "Alice Smith",
+      rating: 4.5,
+      date: "2024-01-11",
+      description: "Excellent service, highly recommend.",
+    },
+    {
+      author: "Bob Johnson",
+      rating: 2.5,
+      date: "2024-01-12",
+      description: "Fantastic experience, worth it.",
+    },
+    {
+      author: "Eva Brown",
+      rating: 5,
+      date: "2024-01-13",
+      description: "Impressive quality, satisfied.",
+    },
+    {
+      author: "Chris Williams",
+      rating: 3.9,
+      date: "2024-01-14",
+      description: "Quick delivery, top-notch.",
+    },
+    {
+      author: "Sophie Davis",
+      rating: 2.25,
+      date: "2024-01-15",
+      description: "Amazing product, exceeded expectations.",
+    },
+    {
+      author: "Mike Turner",
+      rating: 4,
+      date: "2024-01-16",
+      description: "Outstanding service, reliable.",
+    },
+    {
+      author: "Linda White",
+      rating: 3.5,
+      date: "2024-01-17",
+      description: "Satisfied customer, thank you!",
+    },
+    {
+      author: "Ryan Miller",
+      rating: 5,
+      date: "2024-01-18",
+      description: "Great value for the money.",
+    },
+    {
+      author: "Megan Turner",
+      rating: 4.25,
+      date: "2024-01-19",
+      description: "Fast shipping, excellent product.",
+    },
+  ];
+
+  const tabs = [
+    "About me",
+    "My Team",
+    "Analytics",
+    "Suggestions",
+    "Reviews Summary",
+  ];
   const [currentTab, setCurrentTab] = useState<string>(tabs[0]);
   function classNames(...classes: any) {
     return classes.filter(Boolean).join(" ");
@@ -370,6 +441,60 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
             </div>
           ) : currentTab === "Suggestions" ? (
             <Suggestions />
+          ) : currentTab === "Reviews Summary" ? (
+            <div className="border m-4 p-4 bg-white space-y-4">
+              <div className="text-2xl font-bold">Reviews Summary</div>
+              <hr className="py-2" />
+              <div className="text-sm">
+                Reviews are an important part of your digital presence and
+                online reputation. Through Yext you can manage both first party
+                and third party reviews. First party reviews display directly on
+                your agency website.
+              </div>
+              <div className="flex justify-between p-4 my-4 border-y items-center px-32">
+                <div className="flex flex-col gap-2  text-center">
+                  <div className="text-xl">96</div>
+                  <div>Total Reviews</div>
+                </div>
+                <div className="flex flex-col gap-2 text-center">
+                  <div className="text-xl">4.9</div>
+                  <div>Average Rating</div>
+                </div>
+                <div>
+                  <ReviewsBarChart />
+                </div>
+              </div>
+              <div className="my-4 py-4 border-b">
+                <div className="font-bold text-lg my-4">
+                  Reviews Awaiting Response(62)
+                </div>
+                <div className="flex flex-col gap-2 text-sm">
+                  {dummyRating.map((item, index) => (
+                    <div
+                      key={index}
+                      className="flex flex-col gap-1 border-t py-4"
+                    >
+                      <div className="flex justify-between gap-2">
+                        <div className="flex flex-start gap-2 items-center">
+                          <div>
+                            <StarRating selectedStars={item.rating} />
+                          </div>
+                          <div className="flex flex-col">
+                            <div>{item.author}</div>
+                            <div>{item.date}</div>
+                          </div>
+                        </div>
+                        <div className="font-bold">Third party</div>
+                      </div>
+                      <div>{item.description}</div>
+                      <div className="  text-blue-700 hover:cursor-pointer">
+                        Respond
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
           ) : (
             <div className="border m-4 p-4 bg-white space-y-4">
               <div className="text-2xl font-bold text-[#003168]">
@@ -389,11 +514,8 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                   {document.c_teamMembers.map((item: any, index: any) => (
                     <div className=" border  !w-[250px] flex flex-col gap-2">
                       <div>
-                        {item.photoGallery ? (
-                          <Image
-                            image={item.photoGallery[0]}
-                            className=""
-                          ></Image>
+                        {item.headshot ? (
+                          <Image image={item.headshot} className=""></Image>
                         ) : (
                           <img
                             src="https://www.shutterstock.com/image-vector/vector-design-avatar-dummy-sign-600nw-1290556063.jpg"

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { useState } from "react";
-import TextBoxContainer from "./DashboardComps/FieldComponents.tsx/TextBoxContainer";
+import TextBoxContainer from "./DashboardComps/FieldComponents/TextBoxContainer";
 import LexicalMarkdownEditor from "./DashboardComps/LexicalRichText/LexicalMarkdownEditor";
 
 interface StructTypeFieldProps {
