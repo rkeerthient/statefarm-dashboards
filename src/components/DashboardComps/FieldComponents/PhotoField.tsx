@@ -38,10 +38,6 @@ const PhotoField = ({ fieldId, initialValue, isMulti }: PhotoFieldProps) => {
     );
   }, [value, initialValue]);
 
-  // const handleCancel = () => {
-  //   initialValue ? setValue(initialValue.url) : setValue("");
-  //   setIsEditable(false);
-  // };
   return (
     <>
       <div
