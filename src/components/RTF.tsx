@@ -34,6 +34,8 @@ export default function RTF({
   if (!children) return <></>;
 
   const [underlined, setUnderlined] = useState(children);
+  console.log(JSON.stringify(children));
+
   const [underlineTagCount, setUnderlineTagCount] = useState(0);
 
   function transformChildren() {

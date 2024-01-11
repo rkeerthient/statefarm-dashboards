@@ -569,9 +569,12 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                 <div className="grid grid-cols-4 gap-4 border  p-8">
                   {document.c_teamMembers.map((item: any, index: any) => (
                     <div className=" border  !w-[250px] flex flex-col gap-2">
-                      <div>
+                      <div className="max-h-[280px] h-full flex">
                         {item.headshot ? (
-                          <Image image={item.headshot} className=""></Image>
+                          <Image
+                            image={item.headshot}
+                            className="m-auto"
+                          ></Image>
                         ) : (
                           <img
                             src="https://www.shutterstock.com/image-vector/vector-design-avatar-dummy-sign-600nw-1290556063.jpg"

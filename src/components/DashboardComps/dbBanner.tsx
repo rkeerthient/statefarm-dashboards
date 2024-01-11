@@ -7,6 +7,7 @@ import { useState } from "react";
 import RTF from "../RTF";
 import { useMyContext } from "../Context/MyContext";
 import Portal from "./Portal";
+import { LexicalRichText } from "@yext/react-components";
 export type Address = {
   line1: string;
   city: string;
@@ -45,12 +46,12 @@ const DBBanner = (props: DBBanner) => {
             </div>
             <div>
               {props._site.c_dashboardHeroDescription && (
-                <RTF>
-                  This is a consolidated view of your digital profile
-                  performance. Take a look at how your webpage is doing and ways
-                  to improve your profile. Check out the Learning and
-                  Development tab for assistance with your profile.
-                </RTF>
+                <LexicalRichText
+                  serializedAST={JSON.stringify(
+                    props._site.c_dashboardHeroDescription.json
+                  )}
+                />
+                // <RTF>{props._site.c_dashboardHeroDescription}</RTF>
               )}
             </div>
             <div className="flex gap-4">
