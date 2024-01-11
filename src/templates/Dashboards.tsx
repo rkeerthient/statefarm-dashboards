@@ -86,6 +86,7 @@ export const config: TemplateConfig = {
       "c_teamMembers.c_jobTitle",
       "c_teamMembers.slug",
       "c_teamMembers.headshot",
+      "c_professionalsInsuranceProducts.id",
       "c_professionalsInsuranceProducts.landingPageUrl",
       "c_professionalsInsuranceProducts.bodyV2",
       "c_professionalsInsuranceProducts.c_blogShortDescription",

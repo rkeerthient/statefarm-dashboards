@@ -92,19 +92,23 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
               className={`text-sm text-linkColor mt-2 hover:cursor-pointer`}
               onClick={() => setOpen(true)}
             >
-              + Add blog
+              + Add Product
             </div>
           </>
         ) : (
           <div onClick={handleClick} className="hover:cursor-pointer">
             {insuranceProductPost && insuranceProductPost.length >= 1 ? (
               <div className="space-y-2">
-                {insuranceProductPost.map((item, index) => (
-                  <div className="flex flex-col" key={index}>
-                    <div className="font-bold">{item.name}</div>
-                    <div className="text-sm">{item.id}</div>
-                  </div>
-                ))}
+                {insuranceProductPost.map((item, index) => {
+                  console.log(JSON.stringify(item));
+
+                  return (
+                    <div className="flex flex-col" key={index}>
+                      <div className="font-bold">{item.name}</div>
+                      <div className="text-sm">{item.id}</div>
+                    </div>
+                  );
+                })}
               </div>
             ) : (
               "Click to add"
@@ -152,7 +156,7 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                   </div>
                   <div className="p-8 text-sm">
                     <div className="flex flex-col gap-6">
-                      <div className="text-xl font-bold">New Blog</div>
+                      <div className="text-xl font-bold">New Product</div>
 
                       <div className="flex flex-row justify-between items-center">
                         <div className="font-semibold text-[#5a6370] w-1/5">

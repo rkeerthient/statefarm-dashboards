@@ -8,8 +8,6 @@ type PhotoUploadProps = {
 };
 
 const PhotoUpload = ({ value, isOpen, multiple }: PhotoUploadProps) => {
-  console.log(value);
-
   const [files, setFiles] = useState<
     (File & { preview: string }) | (File & { preview: string })[]
   >([]);
@@ -192,8 +190,6 @@ const PhotoUpload = ({ value, isOpen, multiple }: PhotoUploadProps) => {
                 : `bg-active hover:cursor-pointer`
             }`}
             onClick={() => {
-              console.log(uploadedUrls);
-
               value(uploadedUrls);
               isOpen(false);
             }}
