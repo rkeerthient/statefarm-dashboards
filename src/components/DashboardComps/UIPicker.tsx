@@ -201,7 +201,7 @@ const UIPicker = ({
                       />
                     );
                   case "hours":
-                    return fieldName === "Office hours" ? (
+                    return fieldName === "Office Hours" ? (
                       <HoursField
                         initialValue={initialValue}
                         fieldId={mainFieldSchema.response.$id}
@@ -213,7 +213,7 @@ const UIPicker = ({
                       />
                     ) : (
                       <HoursTempClosedField
-                        initialValue={initialValue}
+                        initialValue={initialValue.reopenDate}
                         fieldId={mainFieldSchema.response.$id}
                       />
                     );
