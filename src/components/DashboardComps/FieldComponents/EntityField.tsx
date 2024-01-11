@@ -1,5 +1,5 @@
 import { Transition, Dialog, Listbox } from "@headlessui/react";
-import { XMarkIcon } from "@heroicons/react/20/solid";
+import { ChevronDownIcon, XMarkIcon } from "@heroicons/react/20/solid";
 import { useState } from "react";
 import LexicalMarkdownEditor from "../LexicalRichText/LexicalMarkdownEditor";
 import PhotoGalleryField from "./PhotoGalleryField";
@@ -77,7 +77,7 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
           isEditable ? `bg-containerBG` : `bg-transparent`
         }`}
       >
-        {isLoading && <div>isLoading...</div>}
+        {/* {isLoading && <div>isLoading...</div>} */}
         {isEditable ? (
           <>
             <div className="space-y-2">
@@ -211,69 +211,56 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                         <div className="w-4/5 flex justify-between">
                           <Listbox
                             value={selectedOption}
-                            onChange={(e) =>
+                            onChange={(selected) => {
+                              setSelectedOption(selected);
                               setNewInsuranceProduct({
                                 ...newInsuranceProduct,
-                                c_category: selectedOption.label,
-                              })
-                            }
+                                c_category: selected.label,
+                              });
+                            }}
                           >
-                            <Listbox.Button className="py-2 pl-3 pr-10 text-left bg-white border border-gray-300 rounded-md shadow-sm cursor-pointer focus:outline-none focus:border-blue-300 focus:ring focus:ring-blue-200 focus:ring-opacity-50">
-                              {selectedOption.label}
-                            </Listbox.Button>
-                            <Listbox.Options className="absolute w-full py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
-                              {options.map((option) => (
-                                <Listbox.Option
-                                  key={option.value}
-                                  value={option}
-                                  className={({ active, selected }) =>
-                                    `cursor-pointer select-none relative py-2 pl-10 pr-4 ${
-                                      active
-                                        ? "text-white bg-blue-600"
-                                        : selected
-                                        ? "text-white bg-blue-500"
-                                        : "text-gray-900"
-                                    }`
-                                  }
-                                >
-                                  {({ selected }) => (
-                                    <>
-                                      <span
-                                        className={`block truncate ${
-                                          selected
-                                            ? "font-semibold"
-                                            : "font-normal"
-                                        }`}
-                                      >
-                                        {option.label}
-                                      </span>
-                                      {selected && (
+                            <div className=" flex gap-4 relative mt-1 h-fit">
+                              <Listbox.Button className="flex gap-4 relative w-full cursor-default bg-fieldBlurBorder rounded-s py-2 pl-3 pr-10 text-left hover:cursor-pointer">
+                                <span className="block text-xs">
+                                  {selectedOption.label}
+                                </span>
+                                <span className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+                                  <ChevronDownIcon
+                                    className="h-5 w-5 text-gray-400"
+                                    aria-hidden="true"
+                                  />
+                                </span>
+                              </Listbox.Button>
+                              <Listbox.Options className="absolute w-fit py-1 mt-1 overflow-auto text-base bg-white rounded-md shadow-lg max-h-60 ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm">
+                                {options.map((option) => (
+                                  <Listbox.Option
+                                    key={option.value}
+                                    value={option}
+                                    className={({ active }) =>
+                                      `w-full  select-none hover:cursor-pointer  ${
+                                        active
+                                          ? "bg-amber-100 text-amber-900"
+                                          : ""
+                                      }`
+                                    }
+                                  >
+                                    {({ selected }) => (
+                                      <>
                                         <span
-                                          className={`${
+                                          className={`block text-xs py-2 p-4 hover:bg-containerBG  ${
                                             selected
-                                              ? "text-white"
-                                              : "text-gray-600"
-                                          } absolute inset-y-0 left-0 flex items-center pl-3`}
+                                              ? "bg-dropdownActiveBG"
+                                              : "bg-white"
+                                          }`}
                                         >
-                                          <svg
-                                            className="w-5 h-5"
-                                            xmlns="http://www.w3.org/2000/svg"
-                                            viewBox="0 0 20 20"
-                                            fill="currentColor"
-                                            aria-hidden="true"
-                                          >
-                                            <path
-                                              fillRule="evenodd"
-                                              d="M0 11l2-2 5 5L18 3l2 2L7 18z"
-                                            />
-                                          </svg>
+                                          {option.label}
                                         </span>
-                                      )}
-                                    </>
-                                  )}
-                                </Listbox.Option>
-                              ))}
-                            </Listbox.Options>
+                                      </>
+                                    )}
+                                  </Listbox.Option>
+                                ))}
+                              </Listbox.Options>
+                            </div>
                           </Listbox>
                         </div>
                       </div>
@@ -287,10 +274,9 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                         </div>
                         <div className="w-4/5 flex justify-between">
                           <PhotoGalleryField
+                            textSize="text-sm"
                             passDataToParent={true}
                             setUrlData={(urlData: string[]) => {
-                              console.log(urlData);
-
                               return setNewInsuranceProduct(
                                 (prevNewBlog: any) => ({
                                   ...prevNewBlog,
@@ -320,7 +306,7 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                         <div className="w-4/5 flex justify-between">
                           <input
                             type="date"
-                            className="border w-full p-1"
+                            className="border w-fit p-1"
                             onChange={(e) =>
                               setNewInsuranceProduct({
                                 ...newInsuranceProduct,
@@ -375,8 +361,17 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
                         </div>
                       </div>
                     </div>
-                    <div className="flex mt-6 gap-3">
-                      <button onClick={handleSave}>Continue</button>
+                    <div className="flex mt-6 gap-3 justify-end">
+                      <div
+                        className={`h-8 flex items-center bg-active rounded-md px-4 py-0 text-white text-sm ${
+                          isLoading
+                            ? `bg-disabled pointer-events-none`
+                            : `bg-active hover:cursor-pointer`
+                        }`}
+                        onClick={handleSave}
+                      >
+                        Continue
+                      </div>
                       <button
                         onClick={handleCancel}
                         className={`text-xs text-linkColor`}
