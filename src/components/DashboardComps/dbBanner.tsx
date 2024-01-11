@@ -32,10 +32,7 @@ const DBBanner = (props: DBBanner) => {
 
   return (
     <>
-      <div
-        style={{ background: "#006ac3" }}
-        className="text-white p-4 flex items-center justify-center flex-row space-x-20 w-full"
-      >
+      <div className="text-white p-4 flex items-center justify-center flex-row space-x-20 w-full dashboardPrimaryBG">
         <div className="flex items-center flex-row  gap-4">
           <div className="  w-48">
             {headshot && (
@@ -48,13 +45,11 @@ const DBBanner = (props: DBBanner) => {
             </div>
             <div>
               {props._site.c_dashboardHeroDescription && (
-                // <RTF>{props._site.c_dashboardHeroDescription}</RTF>
                 <RTF>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Aliquam laudantium, ducimus facilis fugit placeat dolorum
-                  maxime asperiores quis velit dignissimos sit ad incidunt,
-                  maiores doloribus. Voluptatem pariatur dolorem necessitatibus
-                  repudiandae.
+                  This is a consolidated view of your digital profile
+                  performance. Take a look at how your webpage is doing and ways
+                  to improve your profile. Check out the Learning and
+                  Development tab for assistance with your profile.
                 </RTF>
               )}
             </div>

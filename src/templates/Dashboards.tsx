@@ -156,70 +156,70 @@ declare global {
 const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
   const analyticsData = [
     {
-      SearchTerm: "RBC Services",
+      SearchTerm: "State Farm insurance",
       Impressions: 56000,
       Clicks: 1500,
       CTR: 2.68,
       Position: 4.7,
     },
     {
-      SearchTerm: "Online RBC",
+      SearchTerm: "Devon Smith insurance",
       Impressions: 31000,
       Clicks: 1200,
       CTR: 3.87,
       Position: 6.2,
     },
     {
-      SearchTerm: "RBC Banking",
+      SearchTerm: "Statefarm",
       Impressions: 42000,
       Clicks: 1800,
       CTR: 4.29,
       Position: 2.4,
     },
     {
-      SearchTerm: "RBC Accounts",
+      SearchTerm: "State Farm Devon",
       Impressions: 69000,
       Clicks: 2500,
       CTR: 3.62,
       Position: 8.1,
     },
     {
-      SearchTerm: "RBC Finance",
+      SearchTerm: "Devon smith homeowners insurance",
       Impressions: 48000,
       Clicks: 900,
       CTR: 1.88,
       Position: 3.5,
     },
     {
-      SearchTerm: "RBC Online",
+      SearchTerm: "Insurance near me",
       Impressions: 36000,
       Clicks: 2000,
       CTR: 5.56,
       Position: 7.8,
     },
     {
-      SearchTerm: "RBC Cards",
+      SearchTerm: "Renters insurance",
       Impressions: 55000,
       Clicks: 2800,
       CTR: 5.09,
       Position: 5.3,
     },
     {
-      SearchTerm: "RBC Solutions",
+      SearchTerm: "State farm RV insurance",
       Impressions: 4200,
       Clicks: 800,
       CTR: 19.05,
       Position: 1.9,
     },
     {
-      SearchTerm: "RBC Support",
+      SearchTerm: "house insurance state farm",
       Impressions: 27000,
       Clicks: 1500,
       CTR: 5.56,
       Position: 9.0,
     },
     {
-      SearchTerm: "RBC Info",
+      SearchTerm: "Smith agency new york",
       Impressions: 61000,
       Clicks: 1200,
       CTR: 1.97,
@@ -295,6 +295,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
     "Analytics",
     "Suggestions",
     "Reviews Summary",
+    "Learning & Support",
   ];
   const [currentTab, setCurrentTab] = useState<string>(tabs[0]);
   function classNames(...classes: any) {
@@ -382,12 +383,12 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
           ) : currentTab === "Analytics" ? (
             <div className="flex flex-row gap-4">
               <div className="p-4 bg-4 w-1/2 bg-white flex flex-col gap-4">
-                <div className="text-3xl">Your Website Analytics</div>
+                <div className="text-3xl">Agent site impressions</div>
                 <BarChart />
               </div>
               <div className="p-4 bg-4 w-1/2 bg-white flex flex-col gap-4">
                 <div className="text-3xl capitalize">
-                  How users find my website
+                  Agent listings search terms/click insights
                 </div>
 
                 <div className="grid grid-cols-2 gap-2">
@@ -494,6 +495,59 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                       </div>
                     </div>
                   ))}
+                </div>
+              </div>
+            </div>
+          ) : currentTab === "Learning & Support" ? (
+            <div className="flex flex-col p-4 pb-12  m-4 gap-16  bg-white w-2/3">
+              <div className="text-2xl font-bold text-[#003168]">
+                Learning Center
+              </div>
+              <div className="flex justify-center gap-8  ">
+                <div className="flex flex-col gap-2 text-center">
+                  <img
+                    className="w-60 mx-auto"
+                    src="https://www.pngplay.com/wp-content/uploads/5/Live-Webinar-Gray-Logo-PNG.png"
+                    alt=""
+                  />
+                  <div className="font-bold text-sm">Webinars</div>
+                  <div className="text-sm hover:cursor-pointer text-blue-700">
+                    Register for Yext 101: New Agent Website Set-Up
+                  </div>
+                  <div className="text-sm hover:cursor-pointer text-blue-700">
+                    Register for Yext 201: SEO & Reviews
+                  </div>
+                  <div className="text-sm hover:cursor-pointer text-blue-700">
+                    Register for Yext 201: Google Business Profile & Community
+                    Engagement
+                  </div>
+                  <div className="text-sm hover:cursor-pointer text-blue-700">
+                    Register for Yext 301: Analytics & Website Performance
+                  </div>
+                  <div className="text-sm hover:cursor-pointer text-blue-700">
+                    Register for Yext Monthly Special Feature Webinar
+                  </div>
+                  <div className="text-sm hover:cursor-pointer text-blue-700">
+                    Sign Up for White Glove Office Hours
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2  text-center">
+                  <img
+                    className="w-32 mx-auto"
+                    src="https://www.seekpng.com/png/full/242-2425880_one-click-support-customer-service-icon-png.png"
+                    alt=""
+                  />
+                  <div className="font-bold text-sm mt-12 ">
+                    One-on-one Call with an Advisor
+                  </div>
+                  <div className="text-left">
+                    As part of the Agency Program, you receive assistance with
+                    optimizing your website from a Yext advisor.
+                  </div>
+                  <div></div>
+                  <div className="text-sm hover:cursor-pointer text-blue-700">
+                    Schedule a call
+                  </div>
                 </div>
               </div>
             </div>

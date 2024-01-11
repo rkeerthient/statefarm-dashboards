@@ -45,6 +45,10 @@
   @apply bg-sky-700 hover:bg-sky-800;
 }
 
+.dashboardPrimaryBG {
+  @apply bg-[#d62311];
+}
+
 .accordion__button:before {
   content: "+";
   float: right;
