@@ -51,7 +51,8 @@ const HoursTempClosedField = ({
         </>
       ) : (
         <div onClick={handleClick} className="hover:cursor-pointer">
-          {value || "Click to add"}
+          {new Date(Date.parse(value)).toLocaleDateString("en-US") ||
+            "Click to add"}
         </div>
       )}
       {isEditable && (

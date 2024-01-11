@@ -261,7 +261,11 @@ const HoursHolidayField = ({
           {initialValue.length >= 1
             ? initialValue.map((item: any, index: any) => (
                 <div className="flex gap-1 items-baseline" key={index}>
-                  <div className="w-1/5">{item.date}</div>
+                  <div className="w-1/5">
+                    {new Date(Date.parse(item.date)).toLocaleDateString(
+                      "en-US"
+                    )}
+                  </div>
                   <div className="flex flex-col  w-1/5">
                     {item.isClosed ? (
                       <div>Closed</div>
