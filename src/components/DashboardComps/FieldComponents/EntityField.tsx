@@ -100,8 +100,6 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
             {insuranceProductPost && insuranceProductPost.length >= 1 ? (
               <div className="space-y-2">
                 {insuranceProductPost.map((item, index) => {
-                  console.log(JSON.stringify(item));
-
                   return (
                     <div className="flex flex-col" key={index}>
                       <div className="font-bold">{item.name}</div>
