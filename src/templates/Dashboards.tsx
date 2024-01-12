@@ -569,52 +569,95 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                 environments, adapt to diverse scenarios, and stay agile in my
                 professional pursuits.
               </div>
-              {document.c_professionalSecondaryAddress && (
-                <div className="grid grid-cols-4 gap-4 border  p-8">
-                  {document.c_professionalSecondaryAddress.map(
-                    (item: any, index: any) => (
-                      <div
-                        key={index}
-                        className=" border  !w-[250px] flex flex-col gap-2"
-                      >
-                        <div className="max-h-[280px] h-full flex">
-                          {item.primaryPhoto ? (
-                            <Image
-                              image={item.primaryPhoto}
-                              className="m-auto"
-                            ></Image>
-                          ) : (
-                            <img
-                              src="https://www.shutterstock.com/image-vector/vector-design-avatar-dummy-sign-600nw-1290556063.jpg"
-                              alt=""
-                              className="h-[250px] w-[250px]"
-                            />
-                          )}
-                        </div>
-                        <div className="text-[#003168] font-bold text-lg px-2">
-                          {item.name.split(" - ")[0]}
-                        </div>
-                        <div className="text-[#003168] font-light text-sm px-2 flex flex-col gap-2">
-                          <div>{item.address.line1}</div>
-                          {item.address.line2 && (
-                            <div>{item.address.line2}</div>
-                          )}
-                          <div>
-                            {item.address.city}, {item.address.region}{" "}
-                            {item.address.postalCode}
-                          </div>
-                        </div>
-                        <a
-                          href={`#`}
-                          className="w-auto flex justify-between items-center text-center border bg-[#e2e8f0] text-black px-8 py-1 rounded-md mx-auto"
-                        >
-                          Get Directions
-                        </a>
+              <div className="flex flex-col gap-6">
+                <div className="flex py-6 border-b flex-col gap-2">
+                  <div className="text-lg font-bold">Primary Location</div>
+                  <div className=" !w-[250px] flex flex-col gap-2">
+                    <div className="max-h-[280px] h-full flex">
+                      {document.photoGallery ? (
+                        <Image
+                          image={document.photoGallery[0]}
+                          className="m-auto"
+                        ></Image>
+                      ) : (
+                        <img
+                          src="https://www.shutterstock.com/image-vector/vector-design-avatar-dummy-sign-600nw-1290556063.jpg"
+                          alt=""
+                          className="h-[250px] w-[250px]"
+                        />
+                      )}
+                    </div>
+
+                    <div className="text-[#003168] font-light text-sm px-2 flex flex-col gap-2">
+                      <div>{document.address.line1}</div>
+                      {document.address.line2 && (
+                        <div>{document.address.line2}</div>
+                      )}
+                      <div>
+                        {document.address.city}, {document.address.region}{" "}
+                        {document.address.postalCode}
                       </div>
-                    )
-                  )}
+                    </div>
+                    <a
+                      href={`#`}
+                      className="w-auto flex justify-between items-center text-center border bg-[#e2e8f0] text-black px-8 py-1 rounded-md mx-auto"
+                    >
+                      Get Directions
+                    </a>
+                  </div>
                 </div>
-              )}
+                {document.c_professionalSecondaryAddress && (
+                  <div className="flex py-6  flex-col gap-2">
+                    <div className="text-lg font-bold">
+                      Secondary Location(s)
+                    </div>
+                    <div className="grid grid-cols-4 gap-4    p-8">
+                      {document.c_professionalSecondaryAddress.map(
+                        (item: any, index: any) => (
+                          <div
+                            key={index}
+                            className=" border  !w-[250px] flex flex-col gap-2"
+                          >
+                            <div className="max-h-[280px] h-full flex">
+                              {item.primaryPhoto ? (
+                                <Image
+                                  image={item.primaryPhoto}
+                                  className="m-auto"
+                                ></Image>
+                              ) : (
+                                <img
+                                  src="https://www.shutterstock.com/image-vector/vector-design-avatar-dummy-sign-600nw-1290556063.jpg"
+                                  alt=""
+                                  className="h-[250px] w-[250px]"
+                                />
+                              )}
+                            </div>
+                            <div className="text-[#003168] font-bold text-lg px-2">
+                              {item.name.split(" - ")[0]}
+                            </div>
+                            <div className="text-[#003168] font-light text-sm px-2 flex flex-col gap-2">
+                              <div>{item.address.line1}</div>
+                              {item.address.line2 && (
+                                <div>{item.address.line2}</div>
+                              )}
+                              <div>
+                                {item.address.city}, {item.address.region}{" "}
+                                {item.address.postalCode}
+                              </div>
+                            </div>
+                            <a
+                              href={`#`}
+                              className="w-auto flex justify-between items-center text-center border bg-[#e2e8f0] text-black px-8 py-1 rounded-md mx-auto"
+                            >
+                              Get Directions
+                            </a>
+                          </div>
+                        )
+                      )}
+                    </div>
+                  </div>
+                )}
+              </div>
             </div>
           ) : (
             <div className="border m-4 p-4 bg-white space-y-4">
