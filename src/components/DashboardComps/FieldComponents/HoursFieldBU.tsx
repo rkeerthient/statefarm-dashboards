@@ -19,7 +19,6 @@ const HoursHolidayFieldBU = ({
 }: HoursHolidayFieldProps) => {
   const hoursType = ["Open", "Split", "24 Hours", "Closed"];
   const [isEditable, setIsEditable] = useState(true);
-  console.log(JSON.stringify(initialValue));
 
   const initialSelectedIntervals: Interval[] = initialValue || [];
 

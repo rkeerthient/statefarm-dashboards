@@ -17,6 +17,7 @@ import ColorPickerField from "./FieldComponents/ColorPickerField";
 import HoursField from "./FieldComponents/HoursField";
 import HoursHolidayField from "./FieldComponents/HoursHolidayFields";
 import HoursTempClosedField from "./FieldComponents/HoursTempClosedField";
+import OtherAddessesEntityField from "./FieldComponents/OtherAddessesEntityField";
 
 interface UIPickerProps {
   subItemField: string;
@@ -274,16 +275,19 @@ const UIPicker = ({
                     ) : mainFieldSchema.response.type.listType.typeId ===
                       "image" ? (
                       <PhotoGalleryField
-                        isMulti={true}
                         initialValue={initialValue}
                         fieldId={mainFieldSchema.response.$id}
                       />
                     ) : mainFieldSchema.response.type.listType.typeId ===
                       "entityReference" ? (
-                      <EntityField
-                        initialValue={initialValue}
-                        fieldId={mainFieldSchema.response.$id}
-                      />
+                      fieldName === "Other Addresses" ? (
+                        <OtherAddessesEntityField />
+                      ) : (
+                        <EntityField
+                          initialValue={initialValue}
+                          fieldId={mainFieldSchema.response.$id}
+                        />
+                      )
                     ) : (
                       subFieldSchema &&
                       subFieldSchema.response.type.structType && (

@@ -77,7 +77,6 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
           isEditable ? `bg-containerBG` : `bg-transparent`
         }`}
       >
-        {/* {isLoading && <div>isLoading...</div>} */}
         {isEditable ? (
           <>
             <div className="space-y-2">

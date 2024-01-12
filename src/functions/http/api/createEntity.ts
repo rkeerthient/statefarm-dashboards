@@ -8,10 +8,10 @@ const CreateEntity = async (
 
   const api_key = YEXT_PUBLIC_DEV_API_KEY as string;
 
-  const { body, format } = queryParams;
+  const { body, format, entityType } = queryParams;
 
   const getEntitiesResponse = await fetch(
-    `https://api.yextapis.com/v2/accounts/me/entities?api_key=${api_key}&v=20230601&entityType=ce_insuranceProducts${
+    `https://api.yextapis.com/v2/accounts/me/entities?api_key=${api_key}&v=20230601&entityType=${entityType}${
       format ? `&format=${format}` : ""
     }`,
     {
