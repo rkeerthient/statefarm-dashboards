@@ -51,7 +51,6 @@ const DBBanner = (props: DBBanner) => {
                     props._site.c_dashboardHeroDescription.json
                   )}
                 />
-                // <RTF>{props._site.c_dashboardHeroDescription}</RTF>
               )}
             </div>
             <div className="flex gap-4">

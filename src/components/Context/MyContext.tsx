@@ -9,9 +9,8 @@ import {
 import * as React from "react";
 import {
   Address,
-  C_awardsDashboard,
   C_designations,
-  C_educationDisplay,
+  C_educationDetails,
   ComplexImage,
   Coordinate,
   Hours,
@@ -34,7 +33,7 @@ interface MyContextData {
   c_hobbiesAndInterests: string[];
   c_teamDescription: any;
   c_languagesV2: string[];
-  c_educationDisplay: C_educationDisplay[];
+  C_educationDetails: C_educationDetails[];
   c_heroBanner: string;
   c_associatedBlogs: any[];
   hours: Hours;
@@ -43,10 +42,9 @@ interface MyContextData {
   _site: any;
   c_designations: C_designations[];
   c_organizationsDisplay: string[];
-  c_awardsDashboard: C_awardsDashboard[];
   c_teamName: string;
   c_teamMembers: any[];
-  c_serviceAreas: any[];
+  c_licensedStates: any[];
 }
 
 interface MyContext {
@@ -87,7 +85,7 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     c_hobbiesAndInterests: [],
     c_teamDescription: undefined,
     c_languagesV2: [],
-    c_educationDisplay: [],
+    C_educationDetails: [],
     c_heroBanner: "",
     c_associatedBlogs: [],
     photoGallery: [],
@@ -97,10 +95,9 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     _site: {},
     c_organizationsDisplay: [],
     c_designations: [],
-    c_awardsDashboard: [],
     c_teamName: "",
     c_teamMembers: [],
-    c_serviceAreas: [],
+    c_licensedStates: [],
   });
 
   return (

@@ -27,7 +27,7 @@ const ServiceAreaMap = () => {
   const [stateCodes, setStateCodes] = useState([]);
   const { data } = useMyContext();
 
-  const initStates = data.c_serviceAreas;
+  const initStates = data.c_licensedStates;
   useEffect(() => {
     let x = allStates
       .filter((item: any) => initStates.includes(item.id))

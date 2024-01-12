@@ -101,7 +101,7 @@ export const config: TemplateConfig = {
       "geocodedCoordinate",
       "c_teamDescription",
       "c_teamName",
-      "c_serviceAreas",
+      "c_licensedStates",
     ],
     filter: {
       entityTypes: ["financialProfessional"],

@@ -42,12 +42,13 @@ const PageLayout = ({ _site, children, document }: Props) => {
         c_hobbiesAndInterests,
         c_teamDescription,
         c_languagesV2,
-        c_educationDisplay,
+        C_educationDetails,
         c_heroBanner,
         c_associatedBlogs,
         photoGallery,
         hours,
         address,
+        headshot,
         geocodedCoordinate,
         c_designations,
         _site,
@@ -55,7 +56,7 @@ const PageLayout = ({ _site, children, document }: Props) => {
         c_awardsDashboard,
         c_teamName,
         c_teamMembers,
-        c_serviceAreas,
+        c_licensedStates,
       } = document;
 
       setData((prevData) => ({
@@ -77,9 +78,8 @@ const PageLayout = ({ _site, children, document }: Props) => {
         ...(c_hobbiesAndInterests && { c_hobbiesAndInterests }),
         ...(c_teamDescription && { c_teamDescription }),
         ...(c_teamName && { c_teamName }),
-
         ...(c_languagesV2 && { c_languagesV2 }),
-        ...(c_educationDisplay && { c_educationDisplay }),
+        ...(C_educationDetails && { C_educationDetails }),
         ...(c_heroBanner && { c_heroBanner }),
         ...(c_associatedBlogs && { c_associatedBlogs }),
         ...(hours && { hours }),
@@ -90,7 +90,8 @@ const PageLayout = ({ _site, children, document }: Props) => {
         ...(_site && { _site }),
         ...(c_awardsDashboard && { c_awardsDashboard }),
         ...(c_teamMembers && { c_teamMembers }),
-        ...(c_serviceAreas && { c_serviceAreas }),
+        ...(c_licensedStates && { c_licensedStates }),
+        ...(headshot && { headshot }),
       }));
     }
     setIsLoading(false);

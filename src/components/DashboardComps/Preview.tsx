@@ -9,7 +9,6 @@ import PhotoCarousel from "../PhotoCarousel";
 import { EnumData } from "../EnumData";
 
 import PageLayout from "../page-layout";
-import ServiceAreaMap from "../ServiceAreaMap";
 const Preview = ({ data }: any) => {
   const { data: _data } = useMyContext();
   const {
@@ -30,11 +29,19 @@ const Preview = ({ data }: any) => {
     c_teamName,
     c_teamDescription,
     c_teamMembers,
-    c_serviceAreas,
+    c_licensedStates,
   } = _data;
 
-  const { name, mainPhone, photoGallery, c_associatedBlogs, hours, address } =
-    data;
+  const {
+    name,
+    mainPhone,
+    headshot,
+    photoGallery,
+    c_associatedBlogs,
+    hours,
+    address,
+  } = data;
+  console.log(JSON.stringify(data));
 
   return (
     <PageLayout _site={_site}>
@@ -56,10 +63,10 @@ const Preview = ({ data }: any) => {
             <div className="text-4xl headColor font-light h-64">
               <div className="flex gap-6">
                 <div>
-                  {photoGallery && (
+                  {headshot && (
                     <Image
                       className="inline-block h-32 !w-32 rounded-full"
-                      image={photoGallery[0]}
+                      image={headshot}
                     />
                   )}
                 </div>
@@ -354,14 +361,14 @@ const Preview = ({ data }: any) => {
           // </div>
         )}
       </div>
-      {/* {c_serviceAreas && (
+      {/* {c_licensedStates && (
         <div className="centered-container">
           <div className=" flex justify-between px-4 bg-white mt-8">
             <div className="w-1/2 flex justify-between items-center">
               {c_preferredFirstName} is based out of {address.city},
               {address.region}, but is licensed in the following states:{" "}
-              {c_serviceAreas
-                .map((item, index) => C_serviceAreas[item])
+              {c_licensedStates
+                .map((item, index) => c_licensedStates[item])
                 .join(", ")}
             </div>
             <div className="w-1/2">

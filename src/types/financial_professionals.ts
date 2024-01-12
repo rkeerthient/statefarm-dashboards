@@ -231,7 +231,7 @@ export interface EntityReference {
 	name: string,
 }
 
-export enum C_serviceAreas {
+export enum c_licensedStates {
 	AL = "Alabama",
 	AK = "Alaska",
 	AZ = "Arizona",
@@ -524,7 +524,7 @@ export default interface FinancialProfessional {
 	c_preferredName?: string,
 	c_professionalSecondaryAddress?: EntityReference[],
 	c_professionalsInsuranceProducts?: EntityReference[],
-	c_serviceAreas?: C_serviceAreas[],
+	c_licensedStates?: c_licensedStates[],
 	c_teamDescription?: any,
 	c_teamName?: string,
 	c_teamMembers?: EntityReference[],
