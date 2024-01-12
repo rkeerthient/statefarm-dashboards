@@ -281,7 +281,7 @@ const UIPicker = ({
                     ) : mainFieldSchema.response.type.listType.typeId ===
                       "entityReference" ? (
                       fieldName === "Other Addresses" ? (
-                        <OtherAddessesEntityField />
+                        <OtherAddessesEntityField initialValue={initialValue} />
                       ) : (
                         <NewProductEntityField
                           initialValue={initialValue}

@@ -45,6 +45,8 @@ interface MyContextData {
   c_teamName: string;
   c_teamMembers: any[];
   c_licensedStates: any[];
+  c_professionalSecondaryAddress: any[];
+  c_professionalsInsuranceProducts: any[];
 }
 
 interface MyContext {
@@ -98,6 +100,8 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     c_teamName: "",
     c_teamMembers: [],
     c_licensedStates: [],
+    c_professionalSecondaryAddress: [],
+    c_professionalsInsuranceProducts: [],
   });
 
   return (

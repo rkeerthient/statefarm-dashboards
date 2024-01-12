@@ -31,6 +31,7 @@ import { Main } from "../layout/main";
 import Suggestions from "../components/DashboardComps/Suggestions";
 import ReviewsBarChart from "../components/DashboardComps/ReviewsBarChart";
 import StarRating from "../components/StarRating";
+import { LexicalRichText } from "@yext/pages-components";
 
 /**
  * Required when Knowledge Graph data is used for a template.
@@ -102,6 +103,10 @@ export const config: TemplateConfig = {
       "c_teamDescription",
       "c_teamName",
       "c_licensedStates",
+      "c_professionalSecondaryAddress.id",
+      "c_professionalSecondaryAddress.name",
+      "c_professionalSecondaryAddress.primaryPhoto",
+      "c_professionalSecondaryAddress.address",
     ],
     filter: {
       entityTypes: ["financialProfessional"],
@@ -153,150 +158,151 @@ declare global {
  * components any way you'd like as long as it lives in the src folder (though you should not put
  * them in the src/templates folder as this is specific for true template files).
  */
-const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
-  const analyticsData = [
-    {
-      SearchTerm: "State Farm insurance",
-      Impressions: 56000,
-      Clicks: 1500,
-      CTR: 2.68,
-      Position: 4.7,
-    },
-    {
-      SearchTerm: "Devon Smith insurance",
-      Impressions: 31000,
-      Clicks: 1200,
-      CTR: 3.87,
-      Position: 6.2,
-    },
-    {
-      SearchTerm: "Statefarm",
-      Impressions: 42000,
-      Clicks: 1800,
-      CTR: 4.29,
-      Position: 2.4,
-    },
-    {
-      SearchTerm: "State Farm Devon",
-      Impressions: 69000,
-      Clicks: 2500,
-      CTR: 3.62,
-      Position: 8.1,
-    },
-    {
-      SearchTerm: "Devon smith homeowners insurance",
-      Impressions: 48000,
-      Clicks: 900,
-      CTR: 1.88,
-      Position: 3.5,
-    },
-    {
-      SearchTerm: "Insurance near me",
-      Impressions: 36000,
-      Clicks: 2000,
-      CTR: 5.56,
-      Position: 7.8,
-    },
-    {
-      SearchTerm: "Renters insurance",
-      Impressions: 55000,
-      Clicks: 2800,
-      CTR: 5.09,
-      Position: 5.3,
-    },
-    {
-      SearchTerm: "State farm RV insurance",
-      Impressions: 4200,
-      Clicks: 800,
-      CTR: 19.05,
-      Position: 1.9,
-    },
-    {
-      SearchTerm: "house insurance state farm",
-      Impressions: 27000,
-      Clicks: 1500,
-      CTR: 5.56,
-      Position: 9.0,
-    },
-    {
-      SearchTerm: "Smith agency new york",
-      Impressions: 61000,
-      Clicks: 1200,
-      CTR: 1.97,
-      Position: 4.1,
-    },
-  ];
-  const dummyRating = [
-    {
-      author: "John Doe",
-      rating: 3.5,
-      date: "2024-01-10",
-      description: "Great product, love it!",
-    },
-    {
-      author: "Alice Smith",
-      rating: 4.5,
-      date: "2024-01-11",
-      description: "Excellent service, highly recommend.",
-    },
-    {
-      author: "Bob Johnson",
-      rating: 2.5,
-      date: "2024-01-12",
-      description: "Fantastic experience, worth it.",
-    },
-    {
-      author: "Eva Brown",
-      rating: 5,
-      date: "2024-01-13",
-      description: "Impressive quality, satisfied.",
-    },
-    {
-      author: "Chris Williams",
-      rating: 3.9,
-      date: "2024-01-14",
-      description: "Quick delivery, top-notch.",
-    },
-    {
-      author: "Sophie Davis",
-      rating: 2.25,
-      date: "2024-01-15",
-      description: "Amazing product, exceeded expectations.",
-    },
-    {
-      author: "Mike Turner",
-      rating: 4,
-      date: "2024-01-16",
-      description: "Outstanding service, reliable.",
-    },
-    {
-      author: "Linda White",
-      rating: 3.5,
-      date: "2024-01-17",
-      description: "Satisfied customer, thank you!",
-    },
-    {
-      author: "Ryan Miller",
-      rating: 5,
-      date: "2024-01-18",
-      description: "Great value for the money.",
-    },
-    {
-      author: "Megan Turner",
-      rating: 4.25,
-      date: "2024-01-19",
-      description: "Fast shipping, excellent product.",
-    },
-  ];
+const analyticsData = [
+  {
+    SearchTerm: "State Farm insurance",
+    Impressions: 56000,
+    Clicks: 1500,
+    CTR: 2.68,
+    Position: 4.7,
+  },
+  {
+    SearchTerm: "Devon Smith insurance",
+    Impressions: 31000,
+    Clicks: 1200,
+    CTR: 3.87,
+    Position: 6.2,
+  },
+  {
+    SearchTerm: "Statefarm",
+    Impressions: 42000,
+    Clicks: 1800,
+    CTR: 4.29,
+    Position: 2.4,
+  },
+  {
+    SearchTerm: "State Farm Devon",
+    Impressions: 69000,
+    Clicks: 2500,
+    CTR: 3.62,
+    Position: 8.1,
+  },
+  {
+    SearchTerm: "Devon smith homeowners insurance",
+    Impressions: 48000,
+    Clicks: 900,
+    CTR: 1.88,
+    Position: 3.5,
+  },
+  {
+    SearchTerm: "Insurance near me",
+    Impressions: 36000,
+    Clicks: 2000,
+    CTR: 5.56,
+    Position: 7.8,
+  },
+  {
+    SearchTerm: "Renters insurance",
+    Impressions: 55000,
+    Clicks: 2800,
+    CTR: 5.09,
+    Position: 5.3,
+  },
+  {
+    SearchTerm: "State farm RV insurance",
+    Impressions: 4200,
+    Clicks: 800,
+    CTR: 19.05,
+    Position: 1.9,
+  },
+  {
+    SearchTerm: "house insurance state farm",
+    Impressions: 27000,
+    Clicks: 1500,
+    CTR: 5.56,
+    Position: 9.0,
+  },
+  {
+    SearchTerm: "Smith agency new york",
+    Impressions: 61000,
+    Clicks: 1200,
+    CTR: 1.97,
+    Position: 4.1,
+  },
+];
+const dummyRating = [
+  {
+    author: "John Doe",
+    rating: 3.5,
+    date: "2024-01-10",
+    description: "Great product, love it!",
+  },
+  {
+    author: "Alice Smith",
+    rating: 4.5,
+    date: "2024-01-11",
+    description: "Excellent service, highly recommend.",
+  },
+  {
+    author: "Bob Johnson",
+    rating: 2.5,
+    date: "2024-01-12",
+    description: "Fantastic experience, worth it.",
+  },
+  {
+    author: "Eva Brown",
+    rating: 5,
+    date: "2024-01-13",
+    description: "Impressive quality, satisfied.",
+  },
+  {
+    author: "Chris Williams",
+    rating: 3.9,
+    date: "2024-01-14",
+    description: "Quick delivery, top-notch.",
+  },
+  {
+    author: "Sophie Davis",
+    rating: 2.25,
+    date: "2024-01-15",
+    description: "Amazing product, exceeded expectations.",
+  },
+  {
+    author: "Mike Turner",
+    rating: 4,
+    date: "2024-01-16",
+    description: "Outstanding service, reliable.",
+  },
+  {
+    author: "Linda White",
+    rating: 3.5,
+    date: "2024-01-17",
+    description: "Satisfied customer, thank you!",
+  },
+  {
+    author: "Ryan Miller",
+    rating: 5,
+    date: "2024-01-18",
+    description: "Great value for the money.",
+  },
+  {
+    author: "Megan Turner",
+    rating: 4.25,
+    date: "2024-01-19",
+    description: "Fast shipping, excellent product.",
+  },
+];
 
-  const tabs = [
-    "About me",
-    "My Team",
-    "Analytics",
-    "Suggestions",
-    "Reviews Summary",
-    "Learning & Support",
-  ];
+const tabs = [
+  "About me",
+  "My Team",
+  "My Offices",
+  "Analytics",
+  "Suggestions",
+  "Reviews Summary",
+  "Learning & Support",
+];
+const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
   const [currentTab, setCurrentTab] = useState<string>(tabs[0]);
   function classNames(...classes: any) {
     return classes.filter(Boolean).join(" ");
@@ -551,19 +557,76 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                 </div>
               </div>
             </div>
+          ) : currentTab === "My Offices" ? (
+            <div className="border m-4 p-4 bg-white space-y-4">
+              <div className="text-2xl font-bold text-[#003168]">
+                My Offices
+              </div>
+              <div className=" font-medium text-[#003168]">
+                I operate from select locations carefully chosen for
+                productivity and convenience. These strategic hubs serve as
+                dynamic workspaces, allowing me to seamlessly transition between
+                environments, adapt to diverse scenarios, and stay agile in my
+                professional pursuits.
+              </div>
+              {document.c_professionalSecondaryAddress && (
+                <div className="grid grid-cols-4 gap-4 border  p-8">
+                  {document.c_professionalSecondaryAddress.map(
+                    (item: any, index: any) => (
+                      <div
+                        key={index}
+                        className=" border  !w-[250px] flex flex-col gap-2"
+                      >
+                        <div className="max-h-[280px] h-full flex">
+                          {item.primaryPhoto ? (
+                            <Image
+                              image={item.primaryPhoto}
+                              className="m-auto"
+                            ></Image>
+                          ) : (
+                            <img
+                              src="https://www.shutterstock.com/image-vector/vector-design-avatar-dummy-sign-600nw-1290556063.jpg"
+                              alt=""
+                              className="h-[250px] w-[250px]"
+                            />
+                          )}
+                        </div>
+                        <div className="text-[#003168] font-bold text-lg px-2">
+                          {item.name.split(" - ")[0]}
+                        </div>
+                        <div className="text-[#003168] font-light text-sm px-2 flex flex-col gap-2">
+                          <div>{item.address.line1}</div>
+                          {item.address.line2 && (
+                            <div>{item.address.line2}</div>
+                          )}
+                          <div>
+                            {item.address.city}, {item.address.region}{" "}
+                            {item.address.postalCode}
+                          </div>
+                        </div>
+                        <a
+                          href={`#`}
+                          className="w-auto flex justify-between items-center text-center border bg-[#e2e8f0] text-black px-8 py-1 rounded-md mx-auto"
+                        >
+                          Get Directions
+                        </a>
+                      </div>
+                    )
+                  )}
+                </div>
+              )}
+            </div>
           ) : (
             <div className="border m-4 p-4 bg-white space-y-4">
               <div className="text-2xl font-bold text-[#003168]">
-                {document.c_displayTeamName
-                  ? document.c_displayTeamName
-                  : `Team name`}
+                {document.c_teamName ? document.c_teamName : `Team name`}
               </div>
               <div className=" font-medium text-[#003168]">
-                A team is defined as a group of people who perform
-                interdependent tasks to work toward accomplishing a common
-                mission or specific objective. Some teams have a limited life:
-                for example, a design team developing a new product, or a
-                continuous proces
+                <LexicalRichText
+                  serializedAST={JSON.stringify(
+                    document.c_teamDescription.json
+                  )}
+                ></LexicalRichText>
               </div>
               {document.c_teamMembers && (
                 <div className="grid grid-cols-4 gap-4 border  p-8">

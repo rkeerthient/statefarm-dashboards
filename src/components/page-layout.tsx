@@ -57,6 +57,8 @@ const PageLayout = ({ _site, children, document }: Props) => {
         c_teamName,
         c_teamMembers,
         c_licensedStates,
+        c_professionalSecondaryAddress,
+        c_professionalsInsuranceProducts,
       } = document;
 
       setData((prevData) => ({
@@ -92,6 +94,12 @@ const PageLayout = ({ _site, children, document }: Props) => {
         ...(c_teamMembers && { c_teamMembers }),
         ...(c_licensedStates && { c_licensedStates }),
         ...(headshot && { headshot }),
+        ...(c_professionalSecondaryAddress && {
+          c_professionalSecondaryAddress,
+        }),
+        ...(c_professionalsInsuranceProducts && {
+          c_professionalsInsuranceProducts,
+        }),
       }));
     }
     setIsLoading(false);

@@ -6,9 +6,13 @@ import { useMyContext } from "../Context/MyContext";
 import StaticMap from "../static-map";
 import { LexicalRichText } from "@yext/pages-components";
 import PhotoCarousel from "../PhotoCarousel";
-import { EnumData } from "../EnumData";
 
 import PageLayout from "../page-layout";
+import {
+  C_educationDetails,
+  C_licensedStates,
+} from "../../types/financial_professionals";
+import ServiceAreaMap from "../ServiceAreaMap";
 const Preview = ({ data }: any) => {
   const { data: _data } = useMyContext();
   const {
@@ -16,20 +20,16 @@ const Preview = ({ data }: any) => {
     c_heroBanner,
     c_aboutAdvisorShortDescription,
     c_expertiseCommentsRTv2,
-    c_hobbiesAndInterests,
     c_clientFocuses,
     c_languagesV2,
     geocodedCoordinate,
     c_fonts,
-    c_educationDisplay,
-    c_organizationsDisplay,
     _site,
-    c_designations,
-    c_awardsDashboard,
     c_teamName,
     c_teamDescription,
     c_teamMembers,
-    c_licensedStates,
+    c_professionalsInsuranceProducts,
+    c_educationDetails,
   } = _data;
 
   const {
@@ -40,8 +40,9 @@ const Preview = ({ data }: any) => {
     c_associatedBlogs,
     hours,
     address,
+    c_licensedStates,
   } = data;
-  console.log(JSON.stringify(data));
+  console.log(JSON.stringify(c_educationDetails));
 
   return (
     <PageLayout _site={_site}>
@@ -98,8 +99,8 @@ const Preview = ({ data }: any) => {
                 <div className="py-4 px-16 mx-auto my-auto hidden md:block">
                   {geocodedCoordinate && (
                     <StaticMap
-                      latitude={geocodedCoordinate.latitude}
-                      longitude={geocodedCoordinate.longitude}
+                      latitude={geocodedCoordinate.latitude + ""}
+                      longitude={geocodedCoordinate.longitude + ""}
                     ></StaticMap>
                   )}
                 </div>
@@ -110,15 +111,17 @@ const Preview = ({ data }: any) => {
                     <div className="font-semibold text-lg">Experience</div>
                     <div>3 years</div>
                   </div>
-                  {c_educationDisplay && (
+                  {c_educationDetails && (
                     <div className="flex flex-col gap-1">
                       <div className="font-semibold text-lg">Education</div>
                       <div className="flex flex-col">
-                        {c_educationDisplay.map((item, index) => (
-                          <div key={index}>
-                            {item.degree}, {item.school}
-                          </div>
-                        ))}
+                        {c_educationDetails.map(
+                          (item: C_educationDetails, index: any) => (
+                            <div key={index}>
+                              {item.degree}, {item.school}
+                            </div>
+                          )
+                        )}
                       </div>
                     </div>
                   )}
@@ -133,16 +136,16 @@ const Preview = ({ data }: any) => {
                     </div>
                   )}
                 </div>
-                <div className="w-1/3 flex flex-col gap-2">
+                {/* <div className="w-1/3 flex flex-col gap-2">
                   <div className="flex flex-col gap-1">
                     <div className="font-semibold text-lg">Client Focuses</div>
                     <div className="flex flex-col">
-                      {c_clientFocuses.map((item, index) => (
+                      {c_clientFocuses.map((item) => (
                         <div key={item}>{C_clientFocuses[item]}</div>
                       ))}
                     </div>
                   </div>
-                </div>
+                </div> */}
                 <div className="w-1/3 flex flex-col gap-2">
                   <div className="flex flex-col gap-1">
                     <div className="font-semibold text-lg">Certifications</div>
@@ -173,90 +176,14 @@ const Preview = ({ data }: any) => {
             <div className="text-xl font-semibold">
               More about {c_preferredFirstName}!
             </div>
-            <div>
+            {/* <div>
               <LexicalRichText
                 serializedAST={JSON.stringify(c_expertiseCommentsRTv2.json)}
               />
-            </div>
+            </div> */}
             <PhotoCarousel data={photoGallery}></PhotoCarousel>
           </div>
-          <div className="grid grid-cols-3 w-full">
-            <div className="flex flex-col gap-2">
-              {c_organizationsDisplay && (
-                <div className="flex flex-col gap-2">
-                  <div className="flex flex-col gap-1">
-                    <div className="font-semibold text-lg">Organizations</div>
-                    <div className="flex flex-col">
-                      {c_organizationsDisplay.map(
-                        (item: string, index: number) => (
-                          <div key={index}>{item}</div>
-                        )
-                      )}
-                    </div>{" "}
-                  </div>
-                </div>
-              )}
-              {c_designations && (
-                <div className="flex flex-col gap-2">
-                  <div className="flex flex-col gap-1">
-                    <div className="font-semibold text-lg">Designations</div>
-                    <div className="flex flex-col">
-                      {c_designations.map(
-                        (item: C_designations, index: number) => (
-                          <div key={index}>
-                            {item.name}{" "}
-                            {item.abbreviation && `(${item.abbreviation})`} -{" "}
-                            {item.date.toLocaleString("en-US")}
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
-              {c_awardsDashboard && (
-                <div className="flex flex-col gap-2">
-                  <div className="flex flex-col gap-1">
-                    <div className="font-semibold text-lg">Awards</div>
-                    <div className="flex flex-col">
-                      {c_awardsDashboard.map(
-                        (item: C_awardsDashboard, index: number) => (
-                          <div key={index}>
-                            {item.nameOfAwardOrHonor} -{" "}
-                            {item.yearsReceived
-                              ?.sort((a, b) => a - b)
-                              .join(", ")}
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-col gap-1">
-                <div className="font-semibold text-lg">
-                  Volunteer Experience
-                </div>
-                <div className="flex flex-col">
-                  {c_clientFocuses.map((item, index) => (
-                    <div key={item}>{EnumData[item]}</div>
-                  ))}
-                </div>
-              </div>
-            </div>
-            <div className="flex flex-col gap-2">
-              <div className="flex flex-col gap-1">
-                <div className="font-semibold text-lg">Hobbies & Interests</div>
-                <div className="flex flex-col">
-                  {c_hobbiesAndInterests.map((item, index) => (
-                    <div key={index}>{C_hobbiesAndInterests[item]}</div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+
           {/* {c_associatedClientStories && (
         <ClientStories inpData={cpy}></ClientStories>
       )}
@@ -361,14 +288,14 @@ const Preview = ({ data }: any) => {
           // </div>
         )}
       </div>
-      {/* {c_licensedStates && (
+      {c_licensedStates && (
         <div className="centered-container">
           <div className=" flex justify-between px-4 bg-white mt-8">
             <div className="w-1/2 flex justify-between items-center">
-              {c_preferredFirstName} is based out of {address.city},
-              {address.region}, but is licensed in the following states:{" "}
+              {name} is based out of {address.city},{address.region}, but is
+              licensed in the following states:{" "}
               {c_licensedStates
-                .map((item, index) => c_licensedStates[item])
+                .map((item: C_licensedStates) => item)
                 .join(", ")}
             </div>
             <div className="w-1/2">
@@ -376,7 +303,7 @@ const Preview = ({ data }: any) => {
             </div>
           </div>
         </div>
-      )} */}
+      )}
     </PageLayout>
   );
 };

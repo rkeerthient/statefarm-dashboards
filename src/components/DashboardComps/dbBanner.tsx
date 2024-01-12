@@ -45,7 +45,7 @@ const DBBanner = (props: DBBanner) => {
             </div>
             <div>
               {props._site.c_dashboardHeroDescription && (
-                <LexicalRichText
+                <LexicalRichText 
                   serializedAST={JSON.stringify(
                     props._site.c_dashboardHeroDescription.json
                   )}
