@@ -4,7 +4,7 @@ import BlogPosts from "../relatedBlogs";
 import Hours from "../hours";
 import { useMyContext } from "../Context/MyContext";
 import StaticMap from "../static-map";
-import { LexicalRichText } from "@yext/react-components";
+import { LexicalRichText } from "@yext/pages-components";
 import PhotoCarousel from "../PhotoCarousel";
 import { EnumData } from "../EnumData";
 

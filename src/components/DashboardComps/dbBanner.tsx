@@ -4,10 +4,9 @@ import { GrFormClose } from "react-icons/gr";
 import { FcCancel } from "react-icons/fc";
 import { Image } from "../../types/financial_professionals";
 import { useState } from "react";
-import RTF from "../RTF";
 import { useMyContext } from "../Context/MyContext";
 import Portal from "./Portal";
-import { LexicalRichText } from "@yext/react-components";
+import { LexicalRichText } from "@yext/pages-components";
 export type Address = {
   line1: string;
   city: string;
