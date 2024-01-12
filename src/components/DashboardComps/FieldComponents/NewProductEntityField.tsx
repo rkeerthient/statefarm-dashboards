@@ -6,7 +6,7 @@ import PhotoGalleryField from "./PhotoGalleryField";
 import * as React from "react";
 import Ce_insuranceProducts from "../../../types/insurance_products";
 
-interface EntityFieldProps {
+interface NewProductEntityFieldProps {
   initialValue?: Ce_insuranceProducts[];
   fieldId: string;
 }
@@ -18,7 +18,9 @@ const options = [
   { label: "Renters", value: "RENTERS" },
 ];
 
-const EntityField = ({ initialValue }: EntityFieldProps) => {
+const NewProductEntityField = ({
+  initialValue,
+}: NewProductEntityFieldProps) => {
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const [insuranceProductPost, setInsuranceProductPost] = useState<
     Ce_insuranceProducts[]
@@ -43,7 +45,9 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
         })
       );
 
-      const response = await fetch(`/api/createEntity?body=${requestBody}`);
+      const response = await fetch(
+        `/api/createEntity?body=${requestBody}&entityType=ce_insuranceProducts`
+      );
       const resp = await response.json();
       const buildRespJson = {
         c_category: await resp.response.c_category,
@@ -387,4 +391,4 @@ const EntityField = ({ initialValue }: EntityFieldProps) => {
   );
 };
 
-export default EntityField;
+export default NewProductEntityField;

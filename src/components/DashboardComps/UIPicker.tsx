@@ -10,7 +10,6 @@ import Slider from "./FieldComponents/Slider";
 import TextBoxList from "./ListsUI/TextboxList";
 import RichTextField from "./FieldComponents/RichTextField";
 import TextArea from "./FieldComponents/TextAreaField";
-import EntityField from "./FieldComponents/EntityField";
 import PhotoField from "./FieldComponents/PhotoField";
 import PhotoGalleryField from "./FieldComponents/PhotoGalleryField";
 import ColorPickerField from "./FieldComponents/ColorPickerField";
@@ -18,6 +17,7 @@ import HoursField from "./FieldComponents/HoursField";
 import HoursHolidayField from "./FieldComponents/HoursHolidayFields";
 import HoursTempClosedField from "./FieldComponents/HoursTempClosedField";
 import OtherAddessesEntityField from "./FieldComponents/OtherAddessesEntityField";
+import NewProductEntityField from "./FieldComponents/NewProductEntityField";
 
 interface UIPickerProps {
   subItemField: string;
@@ -106,7 +106,7 @@ const UIPicker = ({
               return (
                 <div className="flex py-6 px-4 hover:cursor-not-allowed	">
                   {initialValue &&
-                    initialValue.map((item, index) => (
+                    initialValue.map((item: any, index: any) => (
                       <div key={index}>{item}</div>
                     ))}
                 </div>
@@ -283,7 +283,7 @@ const UIPicker = ({
                       fieldName === "Other Addresses" ? (
                         <OtherAddessesEntityField />
                       ) : (
-                        <EntityField
+                        <NewProductEntityField
                           initialValue={initialValue}
                           fieldId={mainFieldSchema.response.$id}
                         />
