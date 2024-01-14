@@ -16,33 +16,28 @@ import ServiceAreaMap from "../ServiceAreaMap";
 const Preview = ({ data }: any) => {
   const { data: _data } = useMyContext();
   const {
+    name,
+    mainPhone,
+    headshot,
+    photoGallery,
+    hours,
+    address,
     c_preferredFirstName,
     c_heroBanner,
+    c_agencyName,
     c_aboutAdvisorShortDescription,
-    c_expertiseCommentsRTv2,
-    c_clientFocuses,
-    c_languagesV2,
+    c_languagesSpoken,
     geocodedCoordinate,
     c_fonts,
     _site,
     c_teamName,
     c_teamDescription,
-    c_teamMembers,
-    c_professionalsInsuranceProducts,
     c_educationDetails,
-  } = _data;
-
-  const {
-    name,
-    mainPhone,
-    headshot,
-    photoGallery,
-    c_associatedBlogs,
-    hours,
-    address,
     c_licensedStates,
+    c_professionalsInsuranceProducts,
+    c_teamMembers,
+    c_professionalSecondaryAddress,
   } = data;
-  console.log(JSON.stringify(c_educationDetails));
 
   return (
     <PageLayout _site={_site}>
@@ -125,11 +120,11 @@ const Preview = ({ data }: any) => {
                       </div>
                     </div>
                   )}
-                  {c_languagesV2 && (
+                  {c_languagesSpoken && (
                     <div className="flex flex-col gap-1">
                       <div className="font-semibold text-lg">Languages</div>
                       <div className="flex flex-col">
-                        {c_languagesV2.map((item, index) => (
+                        {c_languagesSpoken.map((item, index) => (
                           <div key={index}>{item}</div>
                         ))}{" "}
                       </div>

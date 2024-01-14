@@ -11,6 +11,8 @@ import {
   Address,
   C_designations,
   C_educationDetails,
+  C_insuranceProducts,
+  C_licensedStates,
   ComplexImage,
   Coordinate,
   Hours,
@@ -27,12 +29,11 @@ interface MyContextData {
   photoGallery: ComplexImage[];
   c_preferredFirstName: string;
   c_jobTitle: string;
-  c_clientFocuses: string[];
   c_aboutAdvisorShortDescription: string;
-  c_expertiseCommentsRTv2: string;
   c_hobbiesAndInterests: string[];
   c_teamDescription: any;
-  c_languagesV2: string[];
+  c_languagesSpoken: string[];
+  c_fullBiography: string;
   C_educationDetails: C_educationDetails[];
   c_heroBanner: string;
   c_associatedBlogs: any[];
@@ -44,9 +45,12 @@ interface MyContextData {
   c_organizationsDisplay: string[];
   c_teamName: string;
   c_teamMembers: any[];
-  c_licensedStates: any[];
+  c_licensedStates: C_licensedStates[];
   c_professionalSecondaryAddress: any[];
   c_professionalsInsuranceProducts: any[];
+  c_insuranceProducts: C_insuranceProducts[];
+  c_officeHours: Hours;
+  c_agencyName: string;
 }
 
 interface MyContext {
@@ -81,12 +85,10 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     c_fonts: "",
     c_preferredFirstName: "",
     c_jobTitle: "",
-    c_clientFocuses: [],
     c_aboutAdvisorShortDescription: "",
-    c_expertiseCommentsRTv2: "",
     c_hobbiesAndInterests: [],
     c_teamDescription: undefined,
-    c_languagesV2: [],
+    c_languagesSpoken: [],
     C_educationDetails: [],
     c_heroBanner: "",
     c_associatedBlogs: [],
@@ -102,6 +104,10 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     c_licensedStates: [],
     c_professionalSecondaryAddress: [],
     c_professionalsInsuranceProducts: [],
+    c_insuranceProducts: [],
+    c_fullBiography: "",
+    c_officeHours: {},
+    c_agencyName: "",
   });
 
   return (

@@ -1,13 +1,3 @@
-/**
- * This is an example of how to create a template that makes use of streams data.
- * The stream data originates from Yext's Knowledge Graph. When a template in
- * concert with a stream is built by the Yext Sites system, a static html page
- * is generated for every corresponding (based on the filter) stream document.
- *
- * Another way to think about it is that a page will be generated using this
- * template for every eligible entity in your Knowledge Graph.
- */
-
 import {
   GetHeadConfig,
   GetPath,
@@ -33,14 +23,9 @@ import ReviewsBarChart from "../components/DashboardComps/ReviewsBarChart";
 import StarRating from "../components/StarRating";
 import { LexicalRichText } from "@yext/pages-components";
 
-/**
- * Required when Knowledge Graph data is used for a template.
- */
 export const config: TemplateConfig = {
   stream: {
     $id: "my-stream-prof-dashboard",
-    // Specifies the exact data that each generated document will contain. This data is passed in
-    // directly as props to the default exported function.
     fields: [
       "slug",
       "id",
@@ -107,6 +92,8 @@ export const config: TemplateConfig = {
       "c_professionalSecondaryAddress.name",
       "c_professionalSecondaryAddress.primaryPhoto",
       "c_professionalSecondaryAddress.address",
+      "c_insuranceProducts",
+      "c_agencyName",
     ],
     filter: {
       entityTypes: ["financialProfessional"],
@@ -120,12 +107,7 @@ export const config: TemplateConfig = {
 export const getPath: GetPath<TemplateProps> = ({ document }) => {
   return document.slug;
 };
-/**
- * This allows the user to define a function which will take in their template
- * data and procude a HeadConfig object. When the site is generated, the HeadConfig
- * will be used to generate the inner contents of the HTML document's <head> tag.
- * This can include the title, meta tags, script tags, etc.
- */
+
 export const getHeadConfig: GetHeadConfig<TemplateRenderProps> = ({
   document,
 }): HeadConfig => {
@@ -149,15 +131,8 @@ declare global {
     YEXT_AUTH: { visitor: { externalId: string } };
   }
 }
-/**
- * This is the main template. It can have any name as long as it's the default export.
- * The props passed in here are the direct stream document defined by `config`.
- *
- * There are a bunch of custom components being used from the src/components folder. These are
- * an example of how you could create your own. You can set up your folder structure for custom
- * components any way you'd like as long as it lives in the src folder (though you should not put
- * them in the src/templates folder as this is specific for true template files).
- */
+
+
 const analyticsData = [
   {
     SearchTerm: "State Farm insurance",

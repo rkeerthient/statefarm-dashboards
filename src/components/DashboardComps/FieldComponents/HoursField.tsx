@@ -150,7 +150,6 @@ const HoursField = ({ initialValue, fieldId }: HoursFieldProps) => {
         };
       }
     });
-    console.log(JSON.stringify({ hours: result }, null, 2));
   };
 
   const handleIntervalChange = (day: string, type: string, value: string) => {
