@@ -10,7 +10,7 @@ interface PhotoFieldProps {
   fieldId: string;
   initialValue: PhotoProps | null;
   isMulti?: boolean;
-  setUrlData?: (urlData: string) => void;
+  setUrlData?: (urlData: string | undefined) => void;
 }
 
 interface PhotoProps {
@@ -38,8 +38,9 @@ const PhotoField = ({
   const handleDelete = (value: string | string[]) => {
     setValue("");
   };
+
   useEffect(() => {
-    value && setUrlData(value);
+    setUrlData !== undefined && value && setUrlData(value);
     setIsContentEdited(
       JSON.stringify(value) !== JSON.stringify(initialValue && initialValue)
     );

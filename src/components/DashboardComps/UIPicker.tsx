@@ -250,6 +250,7 @@ const UIPicker = ({
                   case "image":
                     return (
                       <PhotoField
+                        setUrlData={undefined}
                         isMulti={false}
                         initialValue={initialValue}
                         fieldId={mainFieldSchema.response.$id}
