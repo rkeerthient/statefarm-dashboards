@@ -32,7 +32,7 @@ const DonutChart = () => {
 
             labels: {
               font: {
-                size: 8,
+                size: 15,
               },
               usePointStyle: true,
               generateLabels: (chart) => {
@@ -47,7 +47,7 @@ const DonutChart = () => {
           },
         },
       }}
-      className="!h-[400px] !w-auto"
+      className="!w-[400px] !h-[400px] !mx-auto"
     />
   );
 };

@@ -563,65 +563,81 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
               </div>
             </div>
           ) : currentTab === "Analytics" ? (
-            <div className="flex flex-row gap-4">
-              <div className="p-4 bg-4 w-1/2 bg-white flex flex-col gap-4">
-                <div className="text-3xl">Agent site impressions</div>
-                <BarChart />
-              </div>
-              <div className="p-4 bg-4 w-1/2 bg-white flex flex-col gap-4">
-                <div className="text-3xl capitalize">
-                  Agent listings search terms/click insights
+            <div>
+              <div className="flex flex-row gap-4">
+                <div className="p-4 bg-4 w-1/2 bg-white flex flex-col gap-4">
+                  <div className="text-3xl">Agent site impressions</div>
+                  <BarChart />
                 </div>
+                <div className="p-4 bg-4 w-1/2 bg-white flex flex-col gap-4">
+                  <div className="text-3xl capitalize">
+                    Agent listings search terms/click insights
+                  </div>
 
-                <div className="grid grid-cols-2 gap-2">
-                  <div className="flex justify-center items-center text-xs">
-                    <table className="w-4/5 border-collapse">
-                      <thead>
-                        <tr className="bg-gray-200">
-                          <th className="border p-2">Search Term</th>
-                          <th className="border p-2">Impressions</th>
-                          <th className="border p-2">Clicks</th>
-                          <th className="border p-2">CTR</th>
-                          <th className="border p-2">Position</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {analyticsData.map((row, index) => (
-                          <tr key={index} className="border">
-                            <td className="border p-2">{row.SearchTerm}</td>
-                            <td className="border p-2">{row.Impressions}</td>
-                            <td className="border p-2">{row.Clicks}</td>
-                            <td className="border p-2">{row.CTR}</td>
-                            <td className="border p-2">{row.Position}</td>
+                  <div className="flex flex-col gap-2">
+                    <DonutChart />
+                    <div className="flex justify-center items-center text-xs">
+                      <table className="w-4/5 border-collapse">
+                        <thead>
+                          <tr className="bg-gray-200">
+                            <th className="border p-2">Search Term</th>
+                            <th className="border p-2">Impressions</th>
+                            <th className="border p-2">Clicks</th>
+                            <th className="border p-2">CTR</th>
+                            <th className="border p-2">Position</th>
                           </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <DonutChart />
-                </div>
-                <div className="bg-white text-center border-t text-gray-800 m-auto flex justify-center items-center w-full py-8 mx-auto">
-                  <div className="flex flex-col gap-4 w-full px-4">
-                    <div className="text-xl font-semibold">
-                      Email, Contact Me, and Phone Call Clicks
-                    </div>
-                    <div>Last 60 Days</div>
-                    <div className="w-full grid grid-cols-3 justify-between">
-                      <div className="flex flex-col gap-2 items-center justify-center">
-                        <div className="text-xl">18</div>
-                        <div className="text-sm">Total Email Clicks</div>
-                      </div>
-                      <div className="flex flex-col gap-2 items-center justify-center">
-                        <div className="text-xl">4</div>
-                        <div className="text-sm">Form Fills</div>
-                      </div>
-                      <div className="flex flex-col gap-2 items-center justify-center">
-                        <div className="text-xl">4</div>
-                        <div className="text-sm">Total Phone Call Clicks</div>
-                      </div>
+                        </thead>
+                        <tbody>
+                          {analyticsData.map((row, index) => (
+                            <tr key={index} className="border">
+                              <td className="border p-2">{row.SearchTerm}</td>
+                              <td className="border p-2">{row.Impressions}</td>
+                              <td className="border p-2">{row.Clicks}</td>
+                              <td className="border p-2">{row.CTR}</td>
+                              <td className="border p-2">{row.Position}</td>
+                            </tr>
+                          ))}
+                        </tbody>
+                      </table>
                     </div>
                   </div>
+                  <div className="bg-white text-center border-t text-gray-800 m-auto flex justify-center items-center w-full py-8 mx-auto">
+                    <div className="flex flex-col gap-4 w-full px-4">
+                      <div className="text-xl font-semibold">
+                        Email, Contact Me, and Phone Call Clicks
+                      </div>
+                      <div>Last 60 Days</div>
+                      <div className="w-full grid grid-cols-3 justify-between">
+                        <div className="flex flex-col gap-2 items-center justify-center">
+                          <div className="text-xl">18</div>
+                          <div className="text-sm">Total Email Clicks</div>
+                        </div>
+                        <div className="flex flex-col gap-2 items-center justify-center">
+                          <div className="text-xl">4</div>
+                          <div className="text-sm">Form Fills</div>
+                        </div>
+                        <div className="flex flex-col gap-2 items-center justify-center">
+                          <div className="text-xl">4</div>
+                          <div className="text-sm">Total Phone Call Clicks</div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <div className="flex flex-col p-8 bg-white">
+                <div className="text-3xl capitalize">Verifier Title</div>
+                <div>
+                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
+                  Adipisci provident aliquam doloremque vitae labore fuga! Eaque
+                  praesentium quo officia odio mollitia tempore alias ex cumque
+                  quisquam nemo, inventore, quod maiores!
+                </div>
+                <img
+                  src="https://i.imgur.com/isf3t9n.png"
+                  alt=""
+                  className="mt-4"
+                />
               </div>
             </div>
           ) : currentTab === "Suggestions" ? (
