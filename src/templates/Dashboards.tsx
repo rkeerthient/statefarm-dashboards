@@ -688,6 +688,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                       <div>{item.review}</div>
                       <a
                         href={item.responseUrl}
+                        target="_blank"
                         className="  text-blue-700 hover:cursor-pointer"
                       >
                         Respond
