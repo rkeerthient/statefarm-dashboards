@@ -29,14 +29,13 @@ interface MyContextData {
   photoGallery: ComplexImage[];
   c_preferredFirstName: string;
   c_jobTitle: string;
-  c_aboutAdvisorShortDescription: string;
+  c_shortBio: string;
   c_hobbiesAndInterests: string[];
   c_teamDescription: any;
   c_languagesSpoken: string[];
   c_fullBiography: string;
   C_educationDetails: C_educationDetails[];
   c_heroBanner: string;
-  c_associatedBlogs: any[];
   hours: Hours;
   address: Address;
   geocodedCoordinate: Coordinate;
@@ -85,13 +84,12 @@ export const MyContextProvider = ({ children }: MyContextProviderProps) => {
     c_fonts: "",
     c_preferredFirstName: "",
     c_jobTitle: "",
-    c_aboutAdvisorShortDescription: "",
+    c_shortBio: "",
     c_hobbiesAndInterests: [],
     c_teamDescription: undefined,
     c_languagesSpoken: [],
     C_educationDetails: [],
     c_heroBanner: "",
-    c_associatedBlogs: [],
     photoGallery: [],
     hours: {},
     address: {},

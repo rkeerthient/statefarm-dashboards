@@ -1,22 +1,26 @@
 import * as React from "react";
 import { useMyContext } from "../../Context/MyContext";
-type Action_Props = {
+
+type ActionsProps = {
   initialValue: any;
   isContentEdited: boolean;
   setIsEditable: (isEditable: boolean) => void;
   setValue: (value: any) => void;
   saveBody: any;
 };
-const Actions = ({
+
+const Actions: React.FC<ActionsProps> = ({
   initialValue,
   isContentEdited,
   setIsEditable,
   setValue,
   saveBody,
-}: Action_Props) => {
+}: ActionsProps) => {
   const { userRole, setData } = useMyContext();
 
   const updateValue = (propertyName: string, newValue: any) => {
+    console.log(`entered, ${propertyName}, ${newValue}`);
+
     setData((prevData) => ({
       ...prevData,
       [propertyName]: newValue,
@@ -27,11 +31,17 @@ const Actions = ({
     try {
       const requestBody = encodeURIComponent(JSON.stringify(saveBody));
       const response = await fetch(
-        `/api/putFields/${`fp-0274`}?body=${requestBody}&userRole=${1}`
+        `/api/putFields/${encodeURIComponent(
+          "fp-0274"
+        )}?body=${requestBody}&userRole=${1}`
       );
       const res = await response.json();
-
-      !res.meta.errors.length && updateValue;
+      if (!res.meta.errors.length) {
+        updateValue(
+          Object.keys(saveBody)[0],
+          saveBody[Object.keys(saveBody)[0]]
+        );
+      }
     } catch (error) {
       console.error(
         `Failed to fetch field configuration for ${JSON.stringify(error)}:`,
@@ -59,7 +69,7 @@ const Actions = ({
       >
         Save for 1 Profile
       </button>
-      <button onClick={handleCancel} className={`text-xs text-linkColor`}>
+      <button onClick={handleCancel} className="text-xs text-linkColor">
         Cancel
       </button>
     </div>

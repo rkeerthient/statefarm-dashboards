@@ -186,9 +186,9 @@ const Preview = ({ data }: any) => {
       {c_associatedFAQs && <FAQs inpData={cpy}></FAQs>}
       {c_associatedSolutions && <Solutions inpData={cpy}></Solutions>} */}
         </div>
-        <div className="mt-16">
+        {/* <div className="mt-16">
           {c_associatedBlogs && <BlogPosts inpData={data}></BlogPosts>}
-        </div>
+        </div> */}
       </div>
       <div className="centered-container mt-8">
         {c_teamName && c_teamDescription && (

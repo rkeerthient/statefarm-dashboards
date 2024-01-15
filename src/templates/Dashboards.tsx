@@ -34,7 +34,6 @@ export const config: TemplateConfig = {
       "meta",
       "c_preferredName",
       "c_jobTitle",
-      "c_clientFocuses",
       "c_fullBiography",
       "c_languagesSpoken",
       "photoGallery",
@@ -54,13 +53,6 @@ export const config: TemplateConfig = {
       "address.extraDescription",
       "c_educationDetails.degree",
       "c_educationDetails.school",
-      "c_volunteeringDisplay",
-      "c_organizationsDisplay",
-      "c_awardsReceived.nameOfAwardOrHonor",
-      "c_awardsReceived.yearsReceived",
-      "c_designations.abbreviation",
-      "c_designations.date",
-      "c_designations.name",
       "c_hobbiesAndInterests",
       "c_photoGallery.alternateText",
       "c_photoGallery.height",
@@ -94,6 +86,7 @@ export const config: TemplateConfig = {
       "c_professionalSecondaryAddress.address",
       "c_insuranceProducts",
       "c_agencyName",
+      "c_shortBio",
     ],
     filter: {
       entityTypes: ["financialProfessional"],
@@ -131,7 +124,6 @@ declare global {
     YEXT_AUTH: { visitor: { externalId: string } };
   }
 }
-
 
 const analyticsData = [
   {
@@ -207,67 +199,267 @@ const analyticsData = [
 ];
 const dummyRating = [
   {
-    author: "John Doe",
-    rating: 3.5,
-    date: "2024-01-10",
-    description: "Great product, love it!",
+    entityId: "fp-0385",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620700",
+    authorName: "David Johnson",
+    authorEmail: "david.johnson@example.com",
+    review: "My agent stopped responding to me",
+    date: "1/13/2024",
+    rating: 1,
   },
   {
-    author: "Alice Smith",
-    rating: 4.5,
-    date: "2024-01-11",
-    description: "Excellent service, highly recommend.",
+    entityId: "fp-0274",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620696",
+    authorName: "James",
+    authorEmail: "james@example.com",
+    review:
+      "Agent withheld important information about discontinuing and reinstating coverage after my vehicle was totaled back in May. The whole process felt intentionally misleading and like I was being gouged.",
+    date: "1/13/2024",
+    rating: 1,
   },
   {
-    author: "Bob Johnson",
-    rating: 2.5,
-    date: "2024-01-12",
-    description: "Fantastic experience, worth it.",
-  },
-  {
-    author: "Eva Brown",
+    entityId: "fp-0274",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620683",
+    authorName: "Rebecca P",
+    authorEmail: "rebecca.p@example.com",
+    review:
+      "Devon gave me a great rate for both automobile and homeowners insurance. He made the process easy and quick for me. He provided excellent customer service and was very pleasant, kind and professional. I highly recommend Devon State Farm Insurance.",
+    date: "1/13/2024",
     rating: 5,
-    date: "2024-01-13",
-    description: "Impressive quality, satisfied.",
   },
   {
-    author: "Chris Williams",
-    rating: 3.9,
-    date: "2024-01-14",
-    description: "Quick delivery, top-notch.",
+    entityId: "fp-0424",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620688",
+    authorName: "Rachel Thompson",
+    authorEmail: "rachel.thompson@example.com",
+    review:
+      "I had a great experience with my State Farm agent. They were prompt in responding to my inquiries and made the insurance process smooth and easy.",
+    date: "1/13/2024",
+    rating: 5,
   },
   {
-    author: "Sophie Davis",
-    rating: 2.25,
-    date: "2024-01-15",
-    description: "Amazing product, exceeded expectations.",
+    entityId: "fp-0385",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620713",
+    authorName: "Jessica Wilson",
+    authorEmail: "jessica.wilson@example.com",
+    review: "Wonderful experience and great rates",
+    date: "1/13/2024",
+    rating: 5,
   },
   {
-    author: "Mike Turner",
+    entityId: "fp-0274",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620705",
+    authorName: "Samuel S",
+    authorEmail: "samuel.s@example.com",
+    review:
+      "Great agent. My quote was very close to my actual monthly payments. I was able to get insurance set up quickly.",
+    date: "1/13/2024",
     rating: 4,
-    date: "2024-01-16",
-    description: "Outstanding service, reliable.",
   },
   {
-    author: "Linda White",
-    rating: 3.5,
-    date: "2024-01-17",
-    description: "Satisfied customer, thank you!",
+    entityId: "fp-0168",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620698",
+    authorName: "Liam Davis",
+    authorEmail: "liam.davis@example.com",
+    review:
+      "I had a disappointing experience with my State Farm agent. Communication was lacking, and I felt left in the dark during the claims process. It took longer than expected to resolve my issue, and I didn't feel the level of support I was hoping for. I'm considering exploring other options for my insurance needs.",
+    date: "1/13/2024",
+    rating: 2,
   },
   {
-    author: "Ryan Miller",
+    entityId: "fp-0288",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620707",
+    authorName: "Olivia Brown",
+    authorEmail: "olivia.brown@example.com",
+    review:
+      "Smooth renewal process every year. My State Farm agent is always available to discuss any adjustments or updates to my policy, making it hassle-free.",
+    date: "1/13/2024",
+    rating: 4,
+  },
+  {
+    entityId: "fp-0288",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620687",
+    authorName: "Matthew White",
+    authorEmail: "matthew.white@example.com",
+    review:
+      "The insurance rates I got through State Farm were competitive, and my agent regularly reviews my policy to ensure I'm getting the best value. Appreciate the proactive approach.",
+    date: "1/13/2024",
+    rating: 4,
+  },
+  {
+    entityId: "fp-0288",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620711",
+    authorName: "Chris Anderson",
+    authorEmail: "chris.anderson@example.com",
+    review:
+      "My premiums went up, which I am not happy about, but I like working with my agent",
+    date: "1/13/2024",
+    rating: 3,
+  },
+  {
+    entityId: "fp-0424",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620701",
+    authorName: "Jennifer Martin",
+    authorEmail: "jennifer.martin@example.com",
+    review:
+      "I had to file a claim recently, and my State Farm agent was proactive in guiding me through the process. Quick and efficient service when I needed it the most.",
+    date: "1/13/2024",
     rating: 5,
-    date: "2024-01-18",
-    description: "Great value for the money.",
   },
   {
-    author: "Megan Turner",
-    rating: 4.25,
-    date: "2024-01-19",
-    description: "Fast shipping, excellent product.",
+    entityId: "fp-0385",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620716",
+    authorName: "William Taylor",
+    authorEmail: "william.taylor@example.com",
+    review:
+      "The claims process with State Farm was straightforward and efficient. My agent guided me through every step and ensured a quick resolution.",
+    date: "1/13/2024",
+    rating: 5,
+  },
+  {
+    entityId: "fp-0288",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620703",
+    authorName: "Emily Johnson",
+    authorEmail: "emily.johnson@example.com",
+    review: "Great service!",
+    date: "1/13/2024",
+    rating: 5,
+  },
+  {
+    entityId: "fp-0168",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620694",
+    authorName: "Brandon Harris",
+    authorEmail: "brandon.harris@example.com",
+    review:
+      "My State Farm agent provided excellent advice when I was unsure about the coverage I needed. Their expertise and guidance were invaluable in making the right decisions.",
+    date: "1/13/2024",
+    rating: 5,
+  },
+  {
+    entityId: "fp-0424",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620715",
+    authorName: "Daniel Miller",
+    authorEmail: "daniel.miller@example.com",
+    review:
+      "I appreciate the personalized approach of my State Farm agent. They took the time to understand my needs and provided tailored insurance solutions.",
+    date: "1/13/2024",
+    rating: 5,
+  },
+  {
+    entityId: "fp-0274",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620692",
+    authorName: "John M",
+    authorEmail: "john.m@example.com",
+    review:
+      "I have been working with this agency for years now and the customer service has been at the best that someone can find. I have also suggested a few of my best friends and they are now clients of this office!",
+    date: "1/13/2024",
+    rating: 5,
+  },
+  {
+    entityId: "fp-0168",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620689",
+    authorName: "Ella Martin",
+    authorEmail: "ella.martin@example.com",
+    review:
+      "I had an emergency claim, and my State Farm agent was a lifesaver. They expedited the process, and I felt supported throughout. Grateful for their responsiveness.",
+    date: "1/13/2024",
+    rating: 5,
+  },
+  {
+    entityId: "fp-0274",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620690",
+    authorName: "Paula Donnel",
+    authorEmail: "paula.donnel@example.com",
+    review:
+      "I have worked with Devon Smith and his staff for several years now. They are consistently quick to respond to my questions and very friendly. They have made insurance easy to understand a stress-free process.",
+    date: "1/13/2024",
+    rating: 4,
+  },
+  {
+    entityId: "fp-0385",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620679",
+    authorName: "Sophia Carter",
+    authorEmail: "sophia.carter@example.com",
+    review:
+      "I've been with State Farm for several years, and my agent consistently delivers top-notch service. I feel confident knowing I have a reliable insurance partner.",
+    date: "1/13/2024",
+    rating: 5,
+  },
+  {
+    entityId: "fp-0168",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620712",
+    authorName: "Daniel Thompson",
+    authorEmail: "daniel.thompson@example.com",
+    review:
+      "Kudos to my State Farm agent for being proactive about keeping me informed on potential discounts. It's refreshing to have an agent looking out for my wallet!",
+    date: "1/13/2024",
+    rating: 5,
+  },
+  {
+    entityId: "fp-0424",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620697",
+    authorName: "Emma Harris",
+    authorEmail: "emma.harris@example.com",
+    review:
+      "Exceptional customer service! My State Farm agent goes above and beyond to address any concerns or changes to my policy promptly.",
+    date: "1/13/2024",
+    rating: 5,
+  },
+  {
+    entityId: "fp-0168",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620708",
+    authorName: "Ava White",
+    authorEmail: "ava.white@example.com",
+    review:
+      "I recently moved, and my State Farm agent made the transition of updating my policy and address seamless. Great attention to detail and customer care.",
+    date: "1/13/2024",
+    rating: 4,
+  },
+  {
+    entityId: "fp-0424",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620710",
+    authorName: "Michael Davis",
+    authorEmail: "michael.davis@example.com",
+    review:
+      "The insurance agent at State Farm was very patient and took the time to explain the details of my policy. I felt confident in my coverage choices.",
+    date: "1/13/2024",
+    rating: 5,
+  },
+  {
+    entityId: "fp-0274",
+    responseUrl:
+      "https://www.yext.com/s/4132897/reviews#p0=status&p1=1%7C3&p2=includes&p3=&yextReviewId=1376620548",
+    authorName: "Art Conway",
+    authorEmail: "art.conway@example.com",
+    review:
+      "I have dealt with Devon Smith for insurance for quite a few years. He has taken care of my insurance needs promptly and accurately. When I have questions, he delivers answers quickly.",
+    date: "1/13/2024",
+    rating: 5,
   },
 ];
-
 const tabs = [
   "About me",
   "My Team",
@@ -279,10 +471,19 @@ const tabs = [
 ];
 const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
   const [currentTab, setCurrentTab] = useState<string>(tabs[0]);
+  const [reviewData, setReviewData] = useState(dummyRating);
   function classNames(...classes: any) {
     return classes.filter(Boolean).join(" ");
   }
 
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const handleDropdownChange = (event: any) => {
+    setSelectedOption(event.target.value);
+    event.target.value !== "all_reviews"
+      ? setReviewData(dummyRating.filter((item) => item.entityId === `fp-0274`))
+      : setReviewData(dummyRating);
+  };
   return (
     <Main>
       <PageLayout _site={document._site} document={document}>
@@ -449,11 +650,25 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                 </div>
               </div>
               <div className="my-4 py-4 border-b">
-                <div className="font-bold text-lg my-4">
-                  Reviews Awaiting Response(62)
+                <div className="my-4 flex justify-between">
+                  <div className="font-bold text-lg ">
+                    Reviews Awaiting Response(62)
+                  </div>
+                  <div className="border p-2">
+                    <select
+                      id="dropdown"
+                      value={selectedOption}
+                      onChange={handleDropdownChange}
+                    >
+                      <option value="">Select...</option>
+                      <option value="all_reviews">All Reviews</option>
+                      <option value="my_reviews">My Reviews</option>
+                    </select>
+                  </div>
                 </div>
+
                 <div className="flex flex-col gap-2 text-sm">
-                  {dummyRating.map((item, index) => (
+                  {reviewData.map((item, index) => (
                     <div
                       key={index}
                       className="flex flex-col gap-1 border-t py-4"
@@ -464,16 +679,19 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                             <StarRating selectedStars={item.rating} />
                           </div>
                           <div className="flex flex-col">
-                            <div>{item.author}</div>
+                            <div>{item.authorName}</div>
                             <div>{item.date}</div>
                           </div>
                         </div>
                         <div className="font-bold">Third party</div>
                       </div>
-                      <div>{item.description}</div>
-                      <div className="  text-blue-700 hover:cursor-pointer">
+                      <div>{item.review}</div>
+                      <a
+                        href={item.responseUrl}
+                        className="  text-blue-700 hover:cursor-pointer"
+                      >
                         Respond
-                      </div>
+                      </a>
                     </div>
                   ))}
                 </div>

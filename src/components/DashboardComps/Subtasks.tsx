@@ -49,7 +49,7 @@ const Subtasks = ({ subItem, document }: any) => {
                 )}
               </div>
             </div>
-            <div className="text-xs text-[#c6ccd1]">{subItem.field}</div>
+            {/* <div className="text-xs text-[#c6ccd1]">{subItem.field}</div> */}
           </div>
         </div>
 
