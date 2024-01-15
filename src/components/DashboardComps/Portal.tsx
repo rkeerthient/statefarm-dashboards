@@ -38,7 +38,7 @@ const Portal: React.FC<PortalProps> = ({ open, setOpen, data }) => {
 
       const styleLink = curWindow?.document.createElement("link");
       styleLink?.setAttribute("rel", "stylesheet");
-      styleLink?.setAttribute("type", "text/css");
+      // styleLink?.setAttribute("type", "text/css");
       // styleLink?.setAttribute(
       //   "href",
       //   "/Users/rkeerthi/Desktop/react-pages/statefarm-dashboards/src/index.css"
