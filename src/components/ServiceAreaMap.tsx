@@ -1,4 +1,3 @@
-import * as React from "react";
 import {
   ComposableMap,
   Geographies,
@@ -9,7 +8,7 @@ import {
 import allStates from "./allStates.json";
 import { geoCentroid } from "d3-geo";
 import { useEffect, useState } from "react";
-import { useMyContext } from "./Context/MyContext";
+import * as React from "react";
 const geoUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
 
 const offsets = {
@@ -23,14 +22,15 @@ const offsets = {
   MD: [47, 10],
   DC: [49, 21],
 };
-const ServiceAreaMap = () => {
+type mapProps = {
+  states: string[];
+};
+const ServiceAreaMap = ({ states }: mapProps) => {
   const [stateCodes, setStateCodes] = useState([]);
-  const { data } = useMyContext();
 
-  const initStates = data.c_licensedStates;
   useEffect(() => {
     let x = allStates
-      .filter((item: any) => initStates.includes(item.id))
+      .filter((item: any) => states.includes(item.id))
       .map((item) => item.val);
     setStateCodes(x);
   }, []);
@@ -45,7 +45,7 @@ const ServiceAreaMap = () => {
                 key={geo.rsmKey}
                 stroke="#FFF"
                 geography={geo}
-                fill={stateCodes.includes(geo.id) ? "lightblue" : "#DDD"}
+                fill={stateCodes.includes(geo.id) ? "#d62211" : "#f7cbc7"}
               />
             ))}
             {geographies.map((geo) => {

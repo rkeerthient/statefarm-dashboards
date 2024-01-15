@@ -19,8 +19,6 @@ const Actions: React.FC<ActionsProps> = ({
   const { userRole, setData } = useMyContext();
 
   const updateValue = (propertyName: string, newValue: any) => {
-    console.log(`entered, ${propertyName}, ${newValue}`);
-
     setData((prevData) => ({
       ...prevData,
       [propertyName]: newValue,

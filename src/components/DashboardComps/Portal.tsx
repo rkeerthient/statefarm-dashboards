@@ -38,12 +38,11 @@ const Portal: React.FC<PortalProps> = ({ open, setOpen, data }) => {
 
       const styleLink = curWindow?.document.createElement("link");
       styleLink?.setAttribute("rel", "stylesheet");
-      // styleLink?.setAttribute("type", "text/css");
-      // styleLink?.setAttribute(
-      //   "href",
-      //   "/Users/rkeerthi/Desktop/react-pages/statefarm-dashboards/src/index.css"
-      // );
-      styleLink?.setAttribute("href", "/assets/static/Dashboards-af1e3634.css");
+      styleLink?.setAttribute(
+        "href",
+        "/Users/rkeerthi/Desktop/react-pages/statefarm-dashboards/src/index.css"
+      );
+      // styleLink?.setAttribute("href", "/assets/static/Dashboards-af1e3634.css");
       curWindow?.document.head.appendChild(
         styleLink || curWindow.document.createElement("div")
       );

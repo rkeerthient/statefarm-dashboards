@@ -1,8 +1,8 @@
-import * as React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import { Image } from "@yext/sites-components";
+import { Image } from "@yext/pages-components";
+import * as React from "react";
 
 const PhotoCarousel = (props: any) => {
   const { data } = props;
@@ -11,7 +11,7 @@ const PhotoCarousel = (props: any) => {
     dots: false,
     infinite: false,
     speed: 500,
-    slidesToShow: props.slidesToShow,
+    slidesToShow: 3,
     slidesToScroll: 1,
     initialSlide: 0,
     responsive: [
@@ -46,7 +46,7 @@ const PhotoCarousel = (props: any) => {
       {data &&
         data.map((item: any, index: any) => (
           <div key={index} className="p-4 border flex flex-row">
-            <Image image={item}></Image>
+            <Image image={item} className="!aspect-square"></Image>
           </div>
         ))}
     </Slider>

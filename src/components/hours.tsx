@@ -1,9 +1,8 @@
-import * as React from "react";
-
 type Hours = {
   title?: string;
   hours: Week;
   children?: React.ReactNode;
+  customclass?: string;
 };
 
 interface Week extends Record<string, any> {
@@ -28,6 +27,9 @@ type OpenIntervals = {
 
 const todayIndex = new Date().getDay();
 
+/**
+ * Dynamically creates a sort order based on today's day.
+ */
 function getSorterForCurrentDay(): { [key: string]: number } {
   const dayIndexes = [0, 1, 2, 3, 4, 5, 6];
 
@@ -113,7 +115,7 @@ const DayRow = (props: DayRow) => {
 
   return (
     <tr className={isToday ? "bg-gray-200 font-bold" : ""}>
-      <td className="capitalize text-left  pr-4">
+      <td className="capitalize text-left pl-1 pr-4">
         <span>{dayName}</span>
       </td>
       {!day.isClosed && (
@@ -134,11 +136,17 @@ const DayRow = (props: DayRow) => {
 };
 
 const Hours = (props: Hours) => {
-  const { title, hours } = props;
+  const { title, hours, customclass } = props;
 
   return (
     <>
-      {title && <div className="text-xl font-semibold mb-4">{title}</div>}
+      <div
+        className={`font-semibold mb-4 ${
+          customclass ? customclass : `text-xl`
+        }`}
+      >
+        {title}
+      </div>
       <table>
         <thead className="sr-only">
           <tr>

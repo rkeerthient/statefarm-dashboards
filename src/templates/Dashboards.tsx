@@ -87,6 +87,7 @@ export const config: TemplateConfig = {
       "c_insuranceProducts",
       "c_agencyName",
       "c_shortBio",
+      "certifications",
     ],
     filter: {
       entityTypes: ["financialProfessional"],
@@ -477,7 +478,6 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
   }
 
   const [selectedOption, setSelectedOption] = useState("");
-
   const handleDropdownChange = (event: any) => {
     setSelectedOption(event.target.value);
     event.target.value !== "all_reviews"

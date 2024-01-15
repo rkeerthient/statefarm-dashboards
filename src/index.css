@@ -32,7 +32,9 @@
 .centered-container {
   @apply mx-auto px-5 md:px-14 max-w-screen-2xl;
 }
-
+.previewPage .centered-container {
+  @apply mx-auto px-5 md:px-14 max-w-screen-xl;
+}
 .section {
   @apply mt-8 mb-16;
 }
@@ -55,7 +57,7 @@
   margin-right: 1em;
   font-size: 2em;
   line-height: 0.5em;
-  color: orange;
+  color: #d62211;
 }
 .accordion__button[aria-expanded="true"]::before,
 .accordion__button[aria-selected="true"]::before {
@@ -79,7 +81,7 @@
 
 .slick-prev::before,
 .slick-next::before {
-  color: orange !important;
+  color: #d62211 !important;
   font-size: 2rem !important;
 }
 
@@ -91,6 +93,9 @@
   top: 40% !important;
 }
 
+.teamCarousel .slick-slide {
+  @apply !h-auto;
+}
 .slick-list {
   width: 80%;
   margin: 0 auto !important;
@@ -771,4 +776,8 @@ i.chevron-down {
 
 .mapPreview path {
   fill: #2a354d;
+}
+
+.previewPage .editor-input {
+  @apply min-h-0;
 }

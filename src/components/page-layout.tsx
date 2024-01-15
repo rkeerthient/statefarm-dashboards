@@ -40,7 +40,7 @@ const PageLayout = ({ _site, children, document }: Props) => {
         c_hobbiesAndInterests,
         c_teamDescription,
         c_languagesSpoken,
-        C_educationDetails,
+        c_educationDetails,
         c_heroBanner,
         photoGallery,
         hours,
@@ -59,6 +59,7 @@ const PageLayout = ({ _site, children, document }: Props) => {
         c_professionalsInsuranceProducts,
         c_fullBiography,
         c_officeHours,
+        certifications,
       } = document;
 
       setData((prevData) => ({
@@ -80,7 +81,8 @@ const PageLayout = ({ _site, children, document }: Props) => {
         ...(c_teamDescription && { c_teamDescription }),
         ...(c_teamName && { c_teamName }),
         ...(c_languagesSpoken && { c_languagesSpoken }),
-        ...(C_educationDetails && { C_educationDetails }),
+        ...(c_educationDetails && { c_educationDetails }),
+        ...(certifications && { certifications }),
         ...(c_heroBanner && { c_heroBanner }),
         ...(hours && { hours }),
         ...(address && { address }),

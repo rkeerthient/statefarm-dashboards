@@ -8,11 +8,11 @@ import { LexicalRichText } from "@yext/pages-components";
 import PhotoCarousel from "../PhotoCarousel";
 
 import PageLayout from "../page-layout";
-import {
-  C_educationDetails,
-  C_licensedStates,
-} from "../../types/financial_professionals";
+
 import ServiceAreaMap from "../ServiceAreaMap";
+import Banner from "../banner";
+import { C_insuranceProducts } from "../../types/financial_professionals";
+import TeamCarousel from "../TeamCarousel";
 const Preview = ({ data }: any) => {
   const { data: _data } = useMyContext();
   const {
@@ -23,9 +23,10 @@ const Preview = ({ data }: any) => {
     hours,
     address,
     c_preferredFirstName,
+    c_fullBiography,
     c_heroBanner,
     c_agencyName,
-    c_aboutAdvisorShortDescription,
+    c_shortBio,
     c_languagesSpoken,
     geocodedCoordinate,
     c_fonts,
@@ -37,268 +38,361 @@ const Preview = ({ data }: any) => {
     c_professionalsInsuranceProducts,
     c_teamMembers,
     c_professionalSecondaryAddress,
+    c_officeHours,
+    c_template,
+    c_insuranceProducts,
+    c_hobbiesAndInterests,
+    certifications,
   } = data;
 
+  const getType = (item: any) => {
+    return item.isClosed
+      ? `Closed`
+      : item.openIntervals[0].start === "00:00" &&
+        item.openIntervals[0].end === "23:59"
+      ? `24 Hours`
+      : item.openIntervals.length >= 2
+      ? `Split`
+      : `Open`;
+  };
   return (
     <PageLayout _site={_site}>
-      <div
-        className={`bg-white `}
-        style={{
-          fontFamily: c_fonts && c_fonts.toLowerCase().replaceAll(" ", ""),
-        }}
-      >
-        <div className="relative text-center">
-          {c_heroBanner && (
-            <Image
-              image={c_heroBanner}
-              className="w-full !max-w-full"
-              style={{ maxHeight: "470px" }}
-            ></Image>
-          )}
-          <div className="absolute top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2	">
-            <div className="text-4xl headColor font-light h-64">
-              <div className="flex gap-6">
-                <div>
-                  {headshot && (
-                    <Image
-                      className="inline-block h-32 !w-32 rounded-full"
-                      image={headshot}
-                    />
-                  )}
-                </div>
-                <div className="flex flex-col gap-3">
-                  <div>{name.includes("-") ? name.split("-")[0] : name}</div>
-                  <div className="text-3xl">
-                    {name.includes("-")
-                      ? name.split("-")[1].replace("RBC Wealth Management ", "")
-                      : ""}
+      <div className="previewPage bg-white">
+        <div className=" w-full mb-4">
+          <div>
+            <Banner
+              headshot={headshot}
+              img={c_heroBanner.url}
+              name={name}
+              mainPhone={mainPhone}
+              title="STATE FARM® INSURANCE AGENT"
+            ></Banner>
+            {c_template !== "TEMPLATE_A" ? (
+              <div className="centered-container my-4">
+                <div className="flex w-full gap-8 items-center">
+                  <div className="w-1/3">
+                    <div className="flex flex-col gap-2 ">
+                      <div className="gap-y-8">
+                        <div className="text-xl font-semibold mb-4">
+                          Address
+                        </div>
+                        <div className=" gap-y-3">
+                          <div>{address.line1}</div>
+                          {address.line2 && <div>{address.line2}</div>}
+                          <div>
+                            {address.city}, {address.region}{" "}
+                            {address.postalCode}
+                          </div>
+                        </div>
+                        <div className="w-fit mt-4 text-sm hover:border-b bg-[#d62211] text-white py-2 px-4 rounded-full font-bold border hover:cursor-pointer hover:border-[#d62211] hover:bg-white hover:text-[#d62211]">
+                          Get Directions
+                        </div>
+                      </div>
+                      <div></div>
+                    </div>
                   </div>
-                  <div className="text-2xl">
-                    {mainPhone &&
-                      mainPhone
-                        .replace("+1", "")
-                        .replace(/\D+/g, "")
-                        .replace(/(\d{3})(\d{3})(\d{4})/, "($1) $2-$3")}
+                  <div className="w-1/3">
+                    {geocodedCoordinate && (
+                      <StaticMap
+                        latitude={geocodedCoordinate.latitude}
+                        longitude={geocodedCoordinate.longitude}
+                      ></StaticMap>
+                    )}
                   </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div className="centered-container flex flex-col gap-4 ">
-          <div className="flex gap-4 mt-4 px-8">
-            <div className="flex flex-col gap-2 w-4/5  ">
-              <div className="flex flex-col gap-2">
-                <div className="text-xl font-semibold">About me</div>
-                <div className="">{c_aboutAdvisorShortDescription}</div>
-                <div className="py-4 px-16 mx-auto my-auto hidden md:block">
-                  {geocodedCoordinate && (
-                    <StaticMap
-                      latitude={geocodedCoordinate.latitude + ""}
-                      longitude={geocodedCoordinate.longitude + ""}
-                    ></StaticMap>
-                  )}
-                </div>
-              </div>
-              <div className="flex w-full justify-between border-t pt-4">
-                <div className="w-1/3 flex flex-col gap-2">
-                  <div className="flex flex-col gap-1">
-                    <div className="font-semibold text-lg">Experience</div>
-                    <div>3 years</div>
-                  </div>
-                  {c_educationDetails && (
-                    <div className="flex flex-col gap-1">
-                      <div className="font-semibold text-lg">Education</div>
-                      <div className="flex flex-col">
-                        {c_educationDetails.map(
-                          (item: C_educationDetails, index: any) => (
-                            <div key={index}>
-                              {item.degree}, {item.school}
-                            </div>
-                          )
+                  <div className="w-1/3">
+                    {c_officeHours && (
+                      <div className="mt-2 !text-sm">
+                        {JSON.stringify(c_officeHours) !== "{}" && (
+                          <Hours
+                            customclass="text-sm !mb-2"
+                            title={"I'm available on"}
+                            hours={c_officeHours}
+                          />
                         )}
-                      </div>
-                    </div>
-                  )}
-                  {c_languagesSpoken && (
-                    <div className="flex flex-col gap-1">
-                      <div className="font-semibold text-lg">Languages</div>
-                      <div className="flex flex-col">
-                        {c_languagesSpoken.map((item, index) => (
-                          <div key={index}>{item}</div>
-                        ))}{" "}
-                      </div>
-                    </div>
-                  )}
-                </div>
-                {/* <div className="w-1/3 flex flex-col gap-2">
-                  <div className="flex flex-col gap-1">
-                    <div className="font-semibold text-lg">Client Focuses</div>
-                    <div className="flex flex-col">
-                      {c_clientFocuses.map((item) => (
-                        <div key={item}>{C_clientFocuses[item]}</div>
-                      ))}
-                    </div>
-                  </div>
-                </div> */}
-                <div className="w-1/3 flex flex-col gap-2">
-                  <div className="flex flex-col gap-1">
-                    <div className="font-semibold text-lg">Certifications</div>
-                    <div></div>
-                  </div>
-                </div>
-              </div>
-            </div>
+                        {c_officeHours.holidayHours &&
+                          c_officeHours.holidayHours.length >= 1 && (
+                            <div className="mt-2 text-sm text-[#d62211]">
+                              <div className=" font-semibold mb-2">
+                                Upcoming Holidays
+                              </div>
+                              <div className="flex flex-col ">
+                                {c_officeHours.holidayHours.map(
+                                  (item: any, index: any) => {
+                                    let type = getType(item);
 
-            <div className="w-1/5 flex flex-col gap-4">
-              <div className="flex flex-col gap-1">
-                <div className="text-xl font-semibold">Address</div>
-                <div className="gap-y-3">
-                  <div>{address.line1}</div>
-                  {address.line2 && <div>{address.line2}</div>}
+                                    return (
+                                      <div
+                                        key={index}
+                                        className="flex gap-4 pr-8"
+                                      >
+                                        <div className="w-1/4">
+                                          {new Date(
+                                            Date.parse(item.date)
+                                          ).toLocaleDateString("en-US")}
+                                        </div>
+                                        {type === "Closed" ||
+                                          (type === "24 Hours" && (
+                                            <div>{type}</div>
+                                          ))}
+
+                                        {type !== "Closed" &&
+                                          type !== "24 Hours" && (
+                                            <div className="flex-1">
+                                              {item.openIntervals[0].start} -{" "}
+                                              {item.openIntervals[0].end}
+                                            </div>
+                                          )}
+                                      </div>
+                                    );
+                                  }
+                                )}
+                              </div>
+                            </div>
+                          )}
+                      </div>
+                    )}
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2 my-4 mb-8">
+                  <div className="text-xl font-semibold ">About me</div>
                   <div>
-                    {address.city}, {address.region} {address.postalCode}
-                  </div>
-                </div>
-              </div>
-              <div className="flex flex-col gap-1">
-                <div className="font-semibold text-xl">I'm available on</div>
-                {hours && <Hours hours={hours}></Hours>}
-              </div>
-            </div>
-          </div>
-          <div className="flex flex-col gap-2 p-4 bg-yellow-100">
-            <div className="text-xl font-semibold">
-              More about {c_preferredFirstName}!
-            </div>
-            {/* <div>
-              <LexicalRichText
-                serializedAST={JSON.stringify(c_expertiseCommentsRTv2.json)}
-              />
-            </div> */}
-            <PhotoCarousel data={photoGallery}></PhotoCarousel>
-          </div>
-
-          {/* {c_associatedClientStories && (
-        <ClientStories inpData={cpy}></ClientStories>
-      )}
-      {c_associatedInsights && <Insights inpData={cpy} />}
-      {c_associatedFAQs && <FAQs inpData={cpy}></FAQs>}
-      {c_associatedSolutions && <Solutions inpData={cpy}></Solutions>} */}
-        </div>
-        {/* <div className="mt-16">
-          {c_associatedBlogs && <BlogPosts inpData={data}></BlogPosts>}
-        </div> */}
-      </div>
-      <div className="centered-container mt-8">
-        {c_teamName && c_teamDescription && (
-          <div className="bg-white py-24 sm:py-32">
-            <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <div className="mx-auto max-w-2xl lg:mx-0">
-                <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
-                  {c_teamName}
-                </h2>
-                <LexicalRichText
-                  serializedAST={JSON.stringify(c_teamDescription.json)}
-                />
-              </div>
-              <ul
-                role="list"
-                className="mx-auto mt-20 grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:grid-cols-2 lg:mx-0 lg:max-w-none lg:grid-cols-3"
-              >
-                {c_teamMembers.map((person: any, index: any) => (
-                  <li key={index}>
-                    {person.photoGallery ? (
-                      <img
-                        className="aspect-[3/2] w-full rounded-2xl object-cover"
-                        src={person.photoGallery[0].image.url}
-                        alt=""
+                    {c_shortBio ? (
+                      <LexicalRichText
+                        serializedAST={JSON.stringify(c_shortBio.json)}
                       />
                     ) : (
-                      <img
-                        className="aspect-[3/2] w-full rounded-2xl object-cover"
-                        src={`https://www.shutterstock.com/image-vector/vector-design-avatar-dummy-sign-600nw-1290556063.jpg`}
-                        alt=""
-                      />
+                      `Enter a short bio in the entity`
                     )}
-                    <h3 className="mt-6 text-lg font-semibold leading-8 tracking-tight text-gray-900">
-                      {person.name.split(" - ")[0]}
-                    </h3>
-                    <p className="text-base leading-7 text-gray-600">
-                      {person.c_jobTitle}
-                    </p>
-                    <ul role="list" className="mt-6 flex gap-x-6">
-                      <li>
-                        <a
-                          href={person.twitterUrl}
-                          className="text-gray-400 hover:text-gray-500"
-                        >
-                          <span className="sr-only">Twitter</span>
-                          <svg
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path d="M6.29 18.251c7.547 0 11.675-6.253 11.675-11.675 0-.178 0-.355-.012-.53A8.348 8.348 0 0020 3.92a8.19 8.19 0 01-2.357.646 4.118 4.118 0 001.804-2.27 8.224 8.224 0 01-2.605.996 4.107 4.107 0 00-6.993 3.743 11.65 11.65 0 01-8.457-4.287 4.106 4.106 0 001.27 5.477A4.073 4.073 0 01.8 7.713v.052a4.105 4.105 0 003.292 4.022 4.095 4.095 0 01-1.853.07 4.108 4.108 0 003.834 2.85A8.233 8.233 0 010 16.407a11.616 11.616 0 006.29 1.84" />
-                          </svg>
-                        </a>
-                      </li>
-                      <li>
-                        <a
-                          href={person.linkedinUrl}
-                          className="text-gray-400 hover:text-gray-500"
-                        >
-                          <span className="sr-only">LinkedIn</span>
-                          <svg
-                            className="h-5 w-5"
-                            aria-hidden="true"
-                            fill="currentColor"
-                            viewBox="0 0 20 20"
-                          >
-                            <path
-                              fillRule="evenodd"
-                              d="M16.338 16.338H13.67V12.16c0-.995-.017-2.277-1.387-2.277-1.39 0-1.601 1.086-1.601 2.207v4.248H8.014v-8.59h2.559v1.174h.037c.356-.675 1.227-1.387 2.526-1.387 2.703 0 3.203 1.778 3.203 4.092v4.711zM5.005 6.575a1.548 1.548 0 11-.003-3.096 1.548 1.548 0 01.003 3.096zm-1.337 9.763H6.34v-8.59H3.667v8.59zM17.668 1H2.328C1.595 1 1 1.581 1 2.298v15.403C1 18.418 1.595 19 2.328 19h15.34c.734 0 1.332-.582 1.332-1.299V2.298C19 1.581 18.402 1 17.668 1z"
-                              clipRule="evenodd"
-                            />
-                          </svg>
-                        </a>
-                      </li>
-                    </ul>
-                  </li>
-                ))}
-              </ul>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="w-full flex flex-col md:flex-row  mt-4 centered-container">
+                <div className="w-full md:w-2/3 ">
+                  <div className="text-xl font-semibold ">About me</div>
+                  {c_shortBio ? (
+                    <LexicalRichText
+                      serializedAST={JSON.stringify(c_shortBio.json)}
+                    />
+                  ) : (
+                    `Enter a short bio in the entity`
+                  )}
+
+                  <div className="py-4 px-16 mx-auto my-auto hidden md:block">
+                    {geocodedCoordinate && (
+                      <StaticMap
+                        latitude={geocodedCoordinate.latitude}
+                        longitude={geocodedCoordinate.longitude}
+                      ></StaticMap>
+                    )}
+                  </div>
+                </div>
+                <div className="w-full md:w-1/3">
+                  <span className=" hidden md:block">
+                    <div className="gap-y-5">
+                      <div className="text-xl font-semibold mb-4">Address</div>
+                      <div className="  gap-y-3">
+                        <div>{address.line1}</div>
+                        {address.line2 && <div>{address.line2}</div>}
+                        <div>
+                          {address.city}, {address.region} {address.postalCode}
+                        </div>
+                      </div>
+                    </div>
+                  </span>
+                  {c_officeHours && (
+                    <div className="mt-8">
+                      {JSON.stringify(c_officeHours) !== "{}" && (
+                        <Hours
+                          title={"I'm available on"}
+                          hours={c_officeHours}
+                        />
+                      )}
+                      {c_officeHours.holidayHours &&
+                        c_officeHours.holidayHours.length >= 1 && (
+                          <div className="mt-4 text-sm text-[#d62211]">
+                            <div className="text-xl font-semibold mb-4">
+                              Upcoming Holidays
+                            </div>
+                            <div className="flex flex-col ">
+                              {c_officeHours.holidayHours.map(
+                                (item: any, index: any) => {
+                                  let type = getType(item);
+
+                                  return (
+                                    <div
+                                      key={index}
+                                      className="flex gap-4 pr-8"
+                                    >
+                                      <div className="w-1/4">
+                                        {new Date(
+                                          Date.parse(item.date)
+                                        ).toLocaleDateString("en-US")}
+                                      </div>
+                                      {type === "Closed" ||
+                                        (type === "24 Hours" && (
+                                          <div>{type}</div>
+                                        ))}
+
+                                      {type !== "Closed" &&
+                                        type !== "24 Hours" && (
+                                          <div className="flex-1">
+                                            {item.openIntervals[0].start} -{" "}
+                                            {item.openIntervals[0].end}
+                                          </div>
+                                        )}
+                                    </div>
+                                  );
+                                }
+                              )}
+                            </div>
+                          </div>
+                        )}
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+        {c_professionalSecondaryAddress && (
+          <div className="flex-col flex gap-2 centered-container mb-8">
+            <div className="font-medium">My Offices</div>
+            <div className="grid grid-cols-4 gap-4">
+              {c_professionalSecondaryAddress.map((item: any, index: any) => (
+                <div
+                  className="flex flex-col gap-2 shadow-md text-sm"
+                  key={index}
+                >
+                  <Image
+                    image={item.primaryPhoto}
+                    className="!aspect-square"
+                  ></Image>
+                  <div className="mt-2 flex flex-col gap-2 p-2">
+                    <div className="font-medium">{item.name}</div>
+                    <div>
+                      <div>{item.address.line1}</div>
+                      {item.address.line2 && <div>{item.address.line2}</div>}
+                      <div>
+                        {item.address.city}, {item.address.region}{" "}
+                        {item.address.postalCode}
+                      </div>
+                    </div>
+                  </div>
+                  <div className="border text-center flex justify-center py-2 px-4 mx-4 bg-[#d62211] text-white hover:cursor-pointer hover:bg-[#f7cbc7] rounded-full mb-4">
+                    Get Directions
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-          // <div className="flex-flex-col mx-auto justify-center">
-          //   <div className="flex flex-col gap-2">
-          //     <div>{c_teamName}</div>
-          //     <div>
-          //       <LexicalRichText
-          //         serializedAST={JSON.stringify(c_teamDescription.json)}
-          //       />
-          //     </div>
-          //     <TeamCarousel data={c_teamMembers}></TeamCarousel>
-          //   </div>
-          // </div>
         )}
-      </div>
-      {c_licensedStates && (
-        <div className="centered-container">
-          <div className=" flex justify-between px-4 bg-white mt-8">
-            <div className="w-1/2 flex justify-between items-center">
-              {name} is based out of {address.city},{address.region}, but is
-              licensed in the following states:{" "}
-              {c_licensedStates
-                .map((item: C_licensedStates) => item)
-                .join(", ")}
+        <div className="bg-[#f7f0e4] p-8 mb-4">
+          <div className="grid grid-cols-3 centered-container w-2/3 !px-0">
+            <div className="flex flex-col gap-4">
+              <div className="flex flex-col">
+                <div className="text-xl font-medium">Experience</div>
+                <div>34 Years</div>
+              </div>
+
+              {c_languagesSpoken && (
+                <div className="flex flex-col">
+                  <div className="text-xl font-medium">Languages</div>
+                  {c_languagesSpoken.map((item: string, index: any) => (
+                    <div key={index}>{item}</div>
+                  ))}
+                </div>
+              )}
             </div>
-            <div className="w-1/2">
-              <ServiceAreaMap />
+            <div className="flex flex-col">
+              <div className="flex flex-col gap-2">
+                {c_insuranceProducts && (
+                  <div className="flex flex-col">
+                    <div className="text-xl font-medium">
+                      Insurance Products
+                    </div>
+                    {c_insuranceProducts.map((item: any, index: any) => (
+                      <div key={index}>{C_insuranceProducts[item]}</div>
+                    ))}
+                  </div>
+                )}
+                {c_hobbiesAndInterests && (
+                  <div className="flex flex-col">
+                    <div className="text-xl font-medium">
+                      Hobbies & Interests
+                    </div>
+                    {c_hobbiesAndInterests.map((item: any, index: any) => (
+                      <div key={index}>{item}</div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+            <div className="flex flex-col">
+              <div className="flex flex-col gap-2">
+                {certifications && (
+                  <div className="flex flex-col">
+                    <div className="text-xl font-medium">Certifications</div>
+                    {certifications.map((item: any, index: any) => (
+                      <div key={index}>{item}</div>
+                    ))}
+                  </div>
+                )}
+                {c_educationDetails && (
+                  <div className="flex flex-col">
+                    <div className="text-xl font-medium">Degree</div>
+                    {c_educationDetails.map((item: any, index: any) => (
+                      <div key={index}>
+                        {item.degree} - {item.school}
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
-      )}
+        <div className="mb-4 bg-[#f7f0e4]">
+          {c_licensedStates && (
+            <div className="centered-container ">
+              <div className=" flex justify-between px-4   mt-8">
+                <div className="w-1/2 flex justify-between items-center">
+                  {name} is based out of {address.city},{address.region}, And is
+                  licensed in the following states:{" "}
+                  {c_licensedStates.map((item: any) => item).join(", ")}
+                </div>
+                <div className="w-1/2">
+                  <ServiceAreaMap states={c_licensedStates} />
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+        <div className="flex p-8 flex-col gap-8 centered-container mb-4">
+          {c_fullBiography && (
+            <div className="flex flex-col gap-2">
+              <div className="font-bold text-lg">More about me</div>
+              <LexicalRichText
+                serializedAST={JSON.stringify(c_fullBiography.json)}
+              />
+            </div>
+          )}
+          {photoGallery && (
+            <div>
+              <PhotoCarousel data={photoGallery}></PhotoCarousel>
+            </div>
+          )}
+        </div>
+        {c_teamName && c_teamMembers && (
+          <div className="my-4 bg-[#f7f0e4] teamCarousel">
+            <TeamCarousel
+              teamName={c_teamName}
+              teamMembersData={c_teamMembers}
+              teamDescription={c_teamDescription}
+            ></TeamCarousel>
+          </div>
+        )}
+      </div>
     </PageLayout>
   );
 };
