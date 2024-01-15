@@ -5,6 +5,7 @@ import LexicalMarkdownEditor from "../LexicalRichText/LexicalMarkdownEditor";
 import PhotoGalleryField from "./PhotoGalleryField";
 import * as React from "react";
 import Ce_insuranceProducts from "../../../types/insurance_products";
+import { useMyContext } from "../../Context/MyContext";
 
 interface NewProductEntityFieldProps {
   initialValue?: Ce_insuranceProducts[];
@@ -21,6 +22,7 @@ const options = [
 const NewProductEntityField = ({
   initialValue,
 }: NewProductEntityFieldProps) => {
+  const { userRole, setData } = useMyContext();
   const [selectedOption, setSelectedOption] = useState(options[0]);
   const [insuranceProductPost, setInsuranceProductPost] = useState<
     Ce_insuranceProducts[]
@@ -53,12 +55,20 @@ const NewProductEntityField = ({
         c_category: await resp.response.c_category,
         name: await resp.response.name,
         id: await resp.response.meta.id,
+        c_blogShortDescription: await resp.response.c_blogShortDescription,
       };
-      resp &&
-        buildRespJson &&
+      if (resp && buildRespJson) {
         setInsuranceProductPost((prevPosts: any) => {
           return [...prevPosts, buildRespJson];
         });
+        setData((prevData) => ({
+          ...prevData,
+          c_professionalsInsuranceProducts: [
+            ...prevData.c_professionalsInsuranceProducts,
+            buildRespJson,
+          ],
+        }));
+      }
     } catch (error) {
       console.error(
         `Failed to fetch field configuration for ${JSON.stringify(error)}:`,

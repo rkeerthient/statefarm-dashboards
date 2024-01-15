@@ -13,6 +13,7 @@ import ServiceAreaMap from "../ServiceAreaMap";
 import Banner from "../banner";
 import { C_insuranceProducts } from "../../types/financial_professionals";
 import TeamCarousel from "../TeamCarousel";
+import InsuranceProductsCarousel from "../InsuranceProductsCarousel";
 const Preview = ({ data }: any) => {
   const { data: _data } = useMyContext();
   const {
@@ -44,6 +45,7 @@ const Preview = ({ data }: any) => {
     c_hobbiesAndInterests,
     certifications,
   } = data;
+  console.log(JSON.stringify(c_professionalsInsuranceProducts));
 
   const getType = (item: any) => {
     return item.isClosed
@@ -352,6 +354,11 @@ const Preview = ({ data }: any) => {
             </div>
           </div>
         </div>
+        {c_professionalsInsuranceProducts && (
+          <InsuranceProductsCarousel
+            data={c_professionalsInsuranceProducts}
+          ></InsuranceProductsCarousel>
+        )}
         <div className="mb-4 bg-[#f7f0e4]">
           {c_licensedStates && (
             <div className="centered-container ">

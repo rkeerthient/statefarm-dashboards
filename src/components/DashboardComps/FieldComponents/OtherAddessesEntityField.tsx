@@ -5,6 +5,7 @@ import { Transition, Dialog } from "@headlessui/react";
 import { XMarkIcon } from "@heroicons/react/20/solid";
 import PhotoField from "./PhotoField";
 import Ce_myOffices from "../../../types/my_offices";
+import { useMyContext } from "../../Context/MyContext";
 
 interface OtherAddessesEntityFieldProps {
   initialValue?: any[];
@@ -77,6 +78,8 @@ type Image = {
 const OtherAddessesEntityField = ({
   initialValue,
 }: OtherAddessesEntityFieldProps) => {
+  const { userRole, setData } = useMyContext();
+
   const [value, setValue] = useState<ValueTypes>();
   const [open, setOpen] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -129,12 +132,24 @@ const OtherAddessesEntityField = ({
         name: await resp.response.name,
         id: await resp.response.meta.id,
       };
-
-      resp &&
-        buildRespJson &&
+      const setDataValue = {
+        name: await resp.response.name,
+        id: await resp.response.meta.id,
+        primaryPhoto: await resp.response.primaryPhoto,
+        address: await resp.response.address,
+      };
+      if (resp && buildRespJson) {
         setMyOffices((prevPosts: any) => {
           return [...prevPosts, buildRespJson];
         });
+        setData((prevData) => ({
+          ...prevData,
+          c_professionalSecondaryAddress: [
+            ...prevData.c_professionalSecondaryAddress,
+            setDataValue,
+          ],
+        }));
+      }
     } catch (error) {
       console.error(
         `Failed to fetch field configuration for ${JSON.stringify(error)}:`,

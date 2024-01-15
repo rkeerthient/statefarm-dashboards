@@ -93,7 +93,7 @@
   top: 40% !important;
 }
 
-.teamCarousel .slick-slide {
+.slick-slide {
   @apply !h-auto;
 }
 .slick-list {
