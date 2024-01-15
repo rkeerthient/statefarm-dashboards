@@ -22,6 +22,7 @@ import Suggestions from "../components/DashboardComps/Suggestions";
 import ReviewsBarChart from "../components/DashboardComps/ReviewsBarChart";
 import StarRating from "../components/StarRating";
 import { LexicalRichText } from "@yext/pages-components";
+import AddressSection from "../components/AddressSection";
 
 export const config: TemplateConfig = {
   stream: {
@@ -769,7 +770,8 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
             </div>
           ) : currentTab === "My Offices" ? (
             <div className="border m-4 p-4 bg-white space-y-4">
-              <div className="text-2xl font-bold text-[#003168]">
+              <AddressSection></AddressSection>
+              {/* <div className="text-2xl font-bold text-[#003168]">
                 My Offices
               </div>
               <div className=" font-medium text-[#003168]">
@@ -867,7 +869,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                     </div>
                   </div>
                 )}
-              </div>
+              </div> */}
             </div>
           ) : (
             <div className="border m-4 p-4 bg-white space-y-4">
