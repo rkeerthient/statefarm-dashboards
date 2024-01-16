@@ -474,6 +474,7 @@ const tabs = [
 const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
   const [currentTab, setCurrentTab] = useState<string>(tabs[0]);
   const [reviewData, setReviewData] = useState(dummyRating);
+  const [reviewType, setReviewType] = useState<string>("ALL_REVIEWS");
   const [styleSheetRef, setStyleSheetRef] = useState<string>("");
   function classNames(...classes: any) {
     return classes.filter(Boolean).join(" ");
@@ -486,13 +487,39 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
     element && setStyleSheetRef(element);
   }, []);
 
+  useEffect(() => {
+    reviewType !== "ALL_REVIEWS"
+      ? setReviewData(dummyRating.filter((item) => item.entityId === `fp-0274`))
+      : setReviewData(dummyRating);
+  }, [reviewType]);
+
   const [selectedOption, setSelectedOption] = useState("");
   const handleDropdownChange = (event: any) => {
     setSelectedOption(event.target.value);
-    event.target.value !== "all_reviews"
-      ? setReviewData(dummyRating.filter((item) => item.entityId === `fp-0274`))
-      : setReviewData(dummyRating);
+
+    switch (event.target.value) {
+      case "rating_h_l":
+        setReviewData(reviewData.sort((a, b) => b.rating - a.rating));
+        break;
+      case "rating_l_h":
+        setReviewData(reviewData.sort((a, b) => a.rating - b.rating));
+        break;
+      case "date_h_l":
+        setReviewData(
+          reviewData.sort((a, b) => new Date(a.date) - new Date(b.date))
+        );
+        break;
+      case "date_l_h":
+        setReviewData(
+          reviewData.sort((a, b) => new Date(b.date) - new Date(a.date))
+        );
+        break;
+      default:
+        // Handle default case if needed
+        break;
+    }
   };
+
   return (
     <Main>
       <PageLayout _site={document._site} document={document}>
@@ -638,10 +665,11 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
               <div className="flex flex-col p-8 bg-white">
                 <div className="text-3xl capitalize">Verifier Title</div>
                 <div>
-                  Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-                  Adipisci provident aliquam doloremque vitae labore fuga! Eaque
-                  praesentium quo officia odio mollitia tempore alias ex cumque
-                  quisquam nemo, inventore, quod maiores!
+                  The Verifier automatically scans the web to determine the
+                  accuracy of your listings. This system will continuously sweep
+                  your listings over time and flag any discrepancies between the
+                  listings publishers are displaying to your customers, and your
+                  data
                 </div>
                 <img
                   src="https://i.imgur.com/isf3t9n.png"
@@ -653,7 +681,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
           ) : currentTab === "Suggestions" ? (
             <Suggestions />
           ) : currentTab === "Reviews Summary" ? (
-            <div className="border m-4 p-4 bg-white space-y-4">
+            <div className="border min-h-[800px] h-[90vh] overflow-scroll m-4 p-4 bg-white space-y-4">
               <div className="text-2xl font-bold">Reviews Summary</div>
               <hr className="py-2" />
               <div className="text-sm">
@@ -676,9 +704,33 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                 </div>
               </div>
               <div className="my-4 py-4 border-b">
-                <div className="my-4 flex justify-between">
+                <div className="my-4 flex justify-between px-4">
                   <div className="font-bold text-lg ">
                     Reviews Awaiting Response(62)
+                  </div>
+                  <div className="flex gap-4">
+                    <div>
+                      <input
+                        className="mr-2"
+                        type="radio"
+                        value="ALL_REVIEWS"
+                        name="gender"
+                        onChange={(e) => setReviewType(e.target.value)}
+                        defaultChecked={reviewType === "ALL_REVIEWS"}
+                      />
+                      All Reviews
+                    </div>
+                    <div>
+                      <input
+                        className="mr-2"
+                        type="radio"
+                        value="MY_REVIEWS"
+                        name="gender"
+                        onChange={(e) => setReviewType(e.target.value)}
+                        defaultChecked={reviewType === "MY_REVIEWS"}
+                      />
+                      My Reviews
+                    </div>
                   </div>
                   <div className="border p-2">
                     <select
@@ -686,9 +738,11 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                       value={selectedOption}
                       onChange={handleDropdownChange}
                     >
-                      <option value="">Select...</option>
-                      <option value="all_reviews">All Reviews</option>
-                      <option value="my_reviews">My Reviews</option>
+                      <option value="">Sort Reviews</option>
+                      <option value="rating_h_l">Rating (High - Low)</option>
+                      <option value="rating_l_h">Rating (Low - High)</option>
+                      <option value="date_h_l">Date (High - Low)</option>
+                      <option value="date_l_h">Date (Low - High)</option>
                     </select>
                   </div>
                 </div>
@@ -780,105 +834,6 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
           ) : currentTab === "My Offices" ? (
             <div className="border m-4 p-4 bg-white space-y-4">
               <AddressSection></AddressSection>
-              {/* <div className="text-2xl font-bold text-[#003168]">
-                My Offices
-              </div>
-              <div className=" font-medium text-[#003168]">
-                I operate from select locations carefully chosen for
-                productivity and convenience. These strategic hubs serve as
-                dynamic workspaces, allowing me to seamlessly transition between
-                environments, adapt to diverse scenarios, and stay agile in my
-                professional pursuits.
-              </div>
-              <div className="flex flex-col gap-6">
-                <div className="flex py-6 border-b flex-col gap-2">
-                  <div className="text-lg font-bold">Primary Location</div>
-                  <div className=" !w-[250px] flex flex-col gap-2">
-                    <div className="max-h-[280px] h-full flex">
-                      {document.photoGallery ? (
-                        <Image
-                          image={document.photoGallery[0]}
-                          className="m-auto"
-                        ></Image>
-                      ) : (
-                        <img
-                          src="https://www.shutterstock.com/image-vector/vector-design-avatar-dummy-sign-600nw-1290556063.jpg"
-                          alt=""
-                          className="h-[250px] w-[250px]"
-                        />
-                      )}
-                    </div>
-
-                    <div className="text-[#003168] font-light text-sm px-2 flex flex-col gap-2">
-                      <div>{document.address.line1}</div>
-                      {document.address.line2 && (
-                        <div>{document.address.line2}</div>
-                      )}
-                      <div>
-                        {document.address.city}, {document.address.region}{" "}
-                        {document.address.postalCode}
-                      </div>
-                    </div>
-                    <a
-                      href={`#`}
-                      className="w-auto flex justify-between items-center text-center border bg-[#e2e8f0] text-black px-8 py-1 rounded-md mx-auto"
-                    >
-                      Get Directions
-                    </a>
-                  </div>
-                </div>
-                {document.c_professionalSecondaryAddress && (
-                  <div className="flex py-6  flex-col gap-2">
-                    <div className="text-lg font-bold">
-                      Secondary Location(s)
-                    </div>
-                    <div className="grid grid-cols-4 gap-4    p-8">
-                      {document.c_professionalSecondaryAddress.map(
-                        (item: any, index: any) => (
-                          <div
-                            key={index}
-                            className=" border  !w-[250px] flex flex-col gap-2"
-                          >
-                            <div className="max-h-[280px] h-full flex">
-                              {item.primaryPhoto ? (
-                                <Image
-                                  image={item.primaryPhoto}
-                                  className="m-auto"
-                                ></Image>
-                              ) : (
-                                <img
-                                  src="https://www.shutterstock.com/image-vector/vector-design-avatar-dummy-sign-600nw-1290556063.jpg"
-                                  alt=""
-                                  className="h-[250px] w-[250px]"
-                                />
-                              )}
-                            </div>
-                            <div className="text-[#003168] font-bold text-lg px-2">
-                              {item.name.split(" - ")[0]}
-                            </div>
-                            <div className="text-[#003168] font-light text-sm px-2 flex flex-col gap-2">
-                              <div>{item.address.line1}</div>
-                              {item.address.line2 && (
-                                <div>{item.address.line2}</div>
-                              )}
-                              <div>
-                                {item.address.city}, {item.address.region}{" "}
-                                {item.address.postalCode}
-                              </div>
-                            </div>
-                            <a
-                              href={`#`}
-                              className="w-auto flex justify-between items-center text-center border bg-[#e2e8f0] text-black px-8 py-1 rounded-md mx-auto"
-                            >
-                              Get Directions
-                            </a>
-                          </div>
-                        )
-                      )}
-                    </div>
-                  </div>
-                )}
-              </div> */}
             </div>
           ) : (
             <div className="border m-4 p-4 bg-white space-y-4">
