@@ -1,13 +1,12 @@
 import * as React from "react";
+import "../../index.css";
 import { Image } from "@yext/sites-components";
 import Hours from "../hours";
 import { useMyContext } from "../Context/MyContext";
 import StaticMap from "../static-map";
 import { LexicalRichText } from "@yext/pages-components";
 import PhotoCarousel from "../PhotoCarousel";
-
 import PageLayout from "../page-layout";
-
 import ServiceAreaMap from "../ServiceAreaMap";
 import Banner from "../banner";
 import { C_insuranceProducts } from "../../types/financial_professionals";
