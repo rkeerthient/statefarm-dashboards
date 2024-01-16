@@ -20,11 +20,15 @@ const PicklistField = ({
   const [value, setValue] = useState<Option | null>(null);
   const isContentEdited = true;
   const [isEditable, setIsEditable] = useState(false);
+  console.log(options);
+
   const handleClick = () => {
     setIsEditable(true);
   };
 
   useEffect(() => {
+    console.log(`enetered, ${initialValue}`);
+
     setValue(
       options.find((option) => option.textValue === initialValue) || options[0]
     );
@@ -32,6 +36,11 @@ const PicklistField = ({
 
   const handleSelectChange = (selectedValue: Option | null) => {
     setValue(selectedValue);
+  };
+
+  const handleSetValue = (e: string | null) => {
+    setValue(options.find((item) => item.textValue === e));
+    console.log(value);
   };
 
   return (
@@ -140,7 +149,7 @@ const PicklistField = ({
           initialValue={initialValue}
           isContentEdited={isContentEdited}
           setIsEditable={(e) => setIsEditable(e)}
-          setValue={(e) => setValue(e)}
+          setValue={(e) => handleSetValue(e)}
           saveBody={{ [fieldId as string]: value!.textValue }}
         />
       )}

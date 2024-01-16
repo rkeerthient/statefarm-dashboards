@@ -1,6 +1,5 @@
 import * as React from "react";
 import { Image } from "@yext/sites-components";
-import BlogPosts from "../relatedBlogs";
 import Hours from "../hours";
 import { useMyContext } from "../Context/MyContext";
 import StaticMap from "../static-map";
@@ -21,7 +20,6 @@ const Preview = ({ data }: any) => {
     mainPhone,
     headshot,
     photoGallery,
-    hours,
     address,
     c_preferredFirstName,
     c_fullBiography,
@@ -59,7 +57,12 @@ const Preview = ({ data }: any) => {
   };
   return (
     <PageLayout _site={_site}>
-      <div className="previewPage bg-white">
+      <div
+        className="previewPage bg-white"
+        style={{
+          fontFamily: c_fonts && c_fonts.toLowerCase().replaceAll(" ", ""),
+        }}
+      >
         <div className=" w-full mb-4">
           <div>
             <Banner
