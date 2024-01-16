@@ -83,7 +83,7 @@ const TextBoxContainer = ({
   const [showSaveButtons, setShowSaveButtons] = useState<boolean>(false);
   const [initBlocks, setInitBlocks] = useState<Block[]>([]);
   const [isContentEdited, setIsContentEdited] = useState<boolean>(false);
-  const { userRole } = useMyContext();
+  const { userRole, setData } = useMyContext();
   const booleanData = [
     {
       displayName: "Yes",
@@ -335,10 +335,6 @@ const TextBoxContainer = ({
       return formattedItem;
     });
 
-    const allKeys: string[] = formattedJsonArray.reduce(
-      (keys, item) => keys.concat(Object.keys(item)),
-      [] as string[]
-    );
     const isRichTextField = properties.some((item) =>
       ["richText", "richTextV2"].includes(item.typeId)
     );
@@ -360,6 +356,11 @@ const TextBoxContainer = ({
           richFormat.length ? `&format=${richFormat}` : ""
         }&userRole=${userRole}`
       );
+      const res = await response.json();
+
+      if (!res.meta.errors.length) {
+        updateValue(fieldId, formattedJsonArray);
+      }
     } catch (error) {
       console.error(
         `Failed to fetch field configuration for ${JSON.stringify(error)}:`,
@@ -370,7 +371,12 @@ const TextBoxContainer = ({
     setInitialValues(formattedJsonArray);
     editMode(false);
   };
-
+  const updateValue = (propertyName: string, newValue: any) => {
+    setData((prevData) => ({
+      ...prevData,
+      [propertyName]: newValue,
+    }));
+  };
   return (
     <div className={`w-full px-4 py-3 bg-containerBG`}>
       {blocks.map((block: Block, index: number) => (
