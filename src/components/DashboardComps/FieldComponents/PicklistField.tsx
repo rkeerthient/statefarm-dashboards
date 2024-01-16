@@ -20,15 +20,12 @@ const PicklistField = ({
   const [value, setValue] = useState<Option | null>(null);
   const isContentEdited = true;
   const [isEditable, setIsEditable] = useState(false);
-  console.log(options);
 
   const handleClick = () => {
     setIsEditable(true);
   };
 
   useEffect(() => {
-    console.log(`enetered, ${initialValue}`);
-
     setValue(
       options.find((option) => option.textValue === initialValue) || options[0]
     );
@@ -40,7 +37,6 @@ const PicklistField = ({
 
   const handleSetValue = (e: string | null) => {
     setValue(options.find((item) => item.textValue === e));
-    console.log(value);
   };
 
   return (

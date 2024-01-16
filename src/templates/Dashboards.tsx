@@ -9,7 +9,7 @@ import {
 } from "@yext/pages";
 import * as React from "react";
 import "../index.css";
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import BarChart from "../components/BarChart";
 import TasksSection from "../components/DashboardComps/TasksSection";
 import DonutChart from "../components/DonutChart";
@@ -474,9 +474,17 @@ const tabs = [
 const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
   const [currentTab, setCurrentTab] = useState<string>(tabs[0]);
   const [reviewData, setReviewData] = useState(dummyRating);
+  const [styleSheetRef, setStyleSheetRef] = useState<string>("");
   function classNames(...classes: any) {
     return classes.filter(Boolean).join(" ");
   }
+
+  useEffect(() => {
+    const element = window.parent.document
+      .querySelector(`head>link`)
+      ?.getAttribute("href");
+    element && setStyleSheetRef(element);
+  }, []);
 
   const [selectedOption, setSelectedOption] = useState("");
   const handleDropdownChange = (event: any) => {
@@ -494,6 +502,7 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
             _site={document._site}
             headshot={document.headshot}
             color={document.c_color}
+            styleSheetRef={styleSheetRef}
           ></DBBanner>
           <div className="px-6">
             <div className="sm:hidden">

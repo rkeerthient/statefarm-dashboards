@@ -2,14 +2,20 @@ import { useRef, useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import * as React from "react";
 import Preview from "./Preview";
-
+import "./index.css";
 interface PortalProps {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
   data: any;
+  styleSheetRef: string;
 }
 
-const Portal: React.FC<PortalProps> = ({ open, setOpen, data }) => {
+const Portal: React.FC<PortalProps> = ({
+  open,
+  setOpen,
+  data,
+  styleSheetRef,
+}) => {
   const _window = useRef<Window | null>(null);
   const [ready, setReady] = useState(false);
 
@@ -38,11 +44,8 @@ const Portal: React.FC<PortalProps> = ({ open, setOpen, data }) => {
 
       const styleLink = curWindow?.document.createElement("link");
       styleLink?.setAttribute("rel", "stylesheet");
-      styleLink?.setAttribute(
-        "href",
-        "/Users/rkeerthi/Desktop/react-pages/statefarm-dashboards/src/index.css"
-      );
-      // styleLink?.setAttribute("href", "/assets/static/Dashboards-af1e3634.css");
+      // styleLink?.setAttribute("href", "/index.css");
+      styleLink?.setAttribute("href", styleSheetRef);
       curWindow?.document.head.appendChild(
         styleLink || curWindow.document.createElement("div")
       );

@@ -1,5 +1,4 @@
 import * as React from "react";
-import "../../index.css";
 import { Image } from "@yext/sites-components";
 import Hours from "../hours";
 import { useMyContext } from "../Context/MyContext";
@@ -12,6 +11,7 @@ import Banner from "../banner";
 import { C_insuranceProducts } from "../../types/financial_professionals";
 import TeamCarousel from "../TeamCarousel";
 import InsuranceProductsCarousel from "../InsuranceProductsCarousel";
+import "./index.css";
 const Preview = ({ data }: any) => {
   const { data: _data } = useMyContext();
   const {
@@ -42,7 +42,6 @@ const Preview = ({ data }: any) => {
     c_hobbiesAndInterests,
     certifications,
   } = data;
-  console.log(JSON.stringify(c_professionalsInsuranceProducts));
 
   const getType = (item: any) => {
     return item.isClosed
