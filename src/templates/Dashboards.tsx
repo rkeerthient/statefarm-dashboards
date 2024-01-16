@@ -504,16 +504,16 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
       case "rating_l_h":
         setReviewData(reviewData.sort((a, b) => a.rating - b.rating));
         break;
-      case "date_h_l":
-        setReviewData(
-          reviewData.sort((a, b) => new Date(a.date) - new Date(b.date))
-        );
-        break;
-      case "date_l_h":
-        setReviewData(
-          reviewData.sort((a, b) => new Date(b.date) - new Date(a.date))
-        );
-        break;
+      // case "date_h_l":
+      //   setReviewData(
+      //     reviewData.sort((a, b) => new Date(a.date) - new Date(b.date))
+      //   );
+      //   break;
+      // case "date_l_h":
+      //   setReviewData(
+      //     reviewData.sort((a, b) => new Date(b.date) - new Date(a.date))
+      //   );
+      //   break;
       default:
         // Handle default case if needed
         break;
@@ -741,8 +741,8 @@ const Dashboards: Template<TemplateRenderProps> = ({ document }) => {
                       <option value="">Sort Reviews</option>
                       <option value="rating_h_l">Rating (High - Low)</option>
                       <option value="rating_l_h">Rating (Low - High)</option>
-                      <option value="date_h_l">Date (High - Low)</option>
-                      <option value="date_l_h">Date (Low - High)</option>
+                      {/* <option value="date_h_l">Date (High - Low)</option>
+                      <option value="date_l_h">Date (Low - High)</option> */}
                     </select>
                   </div>
                 </div>
