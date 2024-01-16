@@ -254,10 +254,7 @@ const HoursHolidayField = ({
           </div>
         </div>
       ) : (
-        <div
-          className="hover:cursor-pointer"
-          //   onClick={() => setIsEditable(true)}
-        >
+        <div className="hover:cursor-pointer w-[60%]">
           {initialValue.length >= 1
             ? initialValue.map((item: any, index: any) => (
                 <div className="flex gap-1 items-baseline" key={index}>

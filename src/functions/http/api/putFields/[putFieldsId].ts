@@ -12,7 +12,7 @@ const putFields = async (
   let getEntitiesResponse;
   let operationType = "";
 
-  userRole === "19718"
+  userRole !== "1"
     ? (getEntitiesResponse = await fetch(
         `https://api.yextapis.com/v2/accounts/me/suggestions?api_key=${api_key}&v=20230601${
           format ? `&format=${format}` : ""

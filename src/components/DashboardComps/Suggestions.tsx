@@ -150,7 +150,7 @@ const Suggestions = () => {
                       <div key={index}>
                         <div>{key}</div>
                         <div className="flex flex-col mt-2">
-                          {value.length
+                          {Array.isArray(value)
                             ? value.map((item, index) => <div>{item}</div>)
                             : value}
                         </div>

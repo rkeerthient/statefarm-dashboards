@@ -327,7 +327,7 @@ const HoursField = ({ initialValue, fieldId }: HoursFieldProps) => {
         </div>
       ) : (
         <div
-          className="hover:cursor-pointer"
+          className="hover:cursor-pointer w-[60%]"
           onClick={() => setIsEditable(true)}
         >
           {JSON.stringify(initialValue) !== "{}" || initialValue !== undefined
