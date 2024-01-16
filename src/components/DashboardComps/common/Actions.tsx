@@ -31,7 +31,9 @@ const Actions: React.FC<ActionsProps> = ({
       const response = await fetch(
         `/api/putFields/${encodeURIComponent(
           "fp-0274"
-        )}?body=${requestBody}&userRole=${1}`
+        )}?body=${requestBody}&userRole=${
+          userRole.acl.length ? userRole.acl[0].roleId : `1`
+        }`
       );
       const res = await response.json();
       if (!res.meta.errors.length) {

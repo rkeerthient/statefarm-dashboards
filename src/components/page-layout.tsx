@@ -15,11 +15,11 @@ type Props = {
 
 const PageLayout = ({ _site, children, document }: Props) => {
   const runtime = getRuntime();
-  const { setUserRole, setData } = useMyContext();
+  const { setUserRole, setData, userRole } = useMyContext();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   //2676513
   const userId = isLocal()
-    ? "2384306164907519769"
+    ? "5862790467202482353"
     : runtime.name === "browser" && window?.YEXT_AUTH?.visitor?.externalId
     ? window.YEXT_AUTH.visitor.externalId
     : "";
@@ -109,7 +109,6 @@ const PageLayout = ({ _site, children, document }: Props) => {
 
   useEffect(() => {
     setIsLoading(true);
-
     const getUserRole = async () => {
       try {
         if (userId) {

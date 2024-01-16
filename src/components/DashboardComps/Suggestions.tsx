@@ -62,7 +62,23 @@ export interface Source {
 const Suggestions = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [suggestionsData, setSuggestionsData] = useState<Root[]>([]);
+  const formattedDate = (createdDate: string) => {
+    const dateObject = new Date(Date.parse(createdDate));
 
+    const dateString = dateObject.toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "numeric",
+      year: "numeric",
+    });
+
+    const timeString = dateObject.toLocaleTimeString("en-US", {
+      hour12: false,
+      hour: "2-digit",
+      minute: "2-digit",
+    });
+
+    return `${dateString} at ${timeString}`;
+  };
   useEffect(() => {
     let isMounted = true;
 
@@ -100,14 +116,12 @@ const Suggestions = () => {
     };
   }, []);
   return (
-    <>
+    <div className="min-h-[800px] overflow-scroll p-4 bg-white">
       {isLoading ? (
-        <div className="px-4 py-3 ">
-          <div
-            className="inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
-            role="status"
-          ></div>
-        </div>
+        <div
+          className="inline-block h-5 w-5 animate-spin rounded-full border-4 border-solid border-current border-r-transparent align-[-0.125em] motion-reduce:animate-[spin_1.5s_linear_infinite]"
+          role="status"
+        ></div>
       ) : (
         <div className="flex flex-col gap-2 px-4 centered-container text-sm text-slate-600 overflow-auto">
           {suggestionsData.map((item: Root, index: number) => (
@@ -136,7 +150,11 @@ const Suggestions = () => {
                     ).map(([key, value]) => (
                       <div key={index}>
                         <div>{key}</div>
-                        <div>{value}</div>
+                        <div className="flex flex-col mt-2">
+                          {value.length
+                            ? value.map((item, index) => <div>{item}</div>)
+                            : value}
+                        </div>
                       </div>
                     ))}
                   </div>
@@ -145,7 +163,7 @@ const Suggestions = () => {
               <div className=" w-1/3 flex flex-col gap-2 p-4 ">
                 <div className="flex flex-col ">
                   <div className="font-bold">Created</div>
-                  <div>{item.createdDate}</div>
+                  <div>{formattedDate(item.createdDate)}</div>
                 </div>
                 <div className="flex flex-col ">
                   <div className="font-bold">Status</div>
@@ -156,7 +174,7 @@ const Suggestions = () => {
           ))}
         </div>
       )}
-    </>
+    </div>
   );
 };
 
